@@ -1,6 +1,8 @@
 # helper function for the dynamical emulator
 # lorenze 63 ground truth
-def lorenze_63(t ,state ,args = parms):
+parms = [10 ,28 ,8/3]
+
+def lorenze_63(t ,state ,args):
   x, y, z = state
   sigma, row, beta = args
 
