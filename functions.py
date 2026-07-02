@@ -189,3 +189,49 @@ def run_trajectory_uniqueness_test(model, base_ic, num_samples=50, perturbation_
         
     return all_emu_trajs, num_unique_trajectories
 
+def neural_prediction_func(model, initial_state, prediction_steps, dt):
+    """
+    Integrates dx/dt = model(state) step-by-step over the training horizon.
+    """
+    def neural_vf(t, state, args):
+        return model(state)
+
+    term = ODETerm(neural_vf)
+    solver = Heun()  # Stable 2nd order RK method for training gradients
+
+    def derivative_stepper(carry, _):
+        solution = diffeqsolve(
+            term,
+            solver,
+            t0=0.0,
+            t1=dt,
+            dt0=dt,
+            y0=carry,
+            saveat=SaveAt(t1=True)
+        )
+        next_state = solution.ys[-1]
+        return next_state, next_state
+
+    _, trajectory = jax.lax.scan(derivative_stepper, initial_state, None, length=prediction_steps)
+    return trajectory
+
+@eqx.filter_value_and_grad
+def compute_loss(model, batch_init_states, batch_true_trajectories, prediction_steps, dt):
+    """
+    Computes trajectory MSE across the batch.
+    """
+    vmapped_rollout = jax.vmap(
+        lambda ic: neural_prediction_func(model, ic, prediction_steps, dt)
+    )
+    predicted_trajectories = vmapped_rollout(batch_init_states)
+    return jnp.mean((predicted_trajectories - batch_true_trajectories) ** 2)
+
+@eqx.filter_jit
+def model_stepper_der(model, opt_state, optimizer, batch_init_states, batch_true_trajectories, prediction_steps, dt):
+    """
+    Replaces your previous step compiler.
+    """
+    loss, grads = compute_loss(model, batch_init_states, batch_true_trajectories, prediction_steps, dt)
+    updates, opt_state = optimizer.update(grads, opt_state, model)
+    model = eqx.apply_updates(model, updates)
+    return model, opt_state, loss
