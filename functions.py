@@ -235,3 +235,73 @@ def model_stepper_der(model, opt_state, optimizer, batch_init_states, batch_true
     updates, opt_state = optimizer.update(grads, opt_state, model)
     model = eqx.apply_updates(model, updates)
     return model, opt_state, loss
+
+def lorenz_rhs(state):
+    x, y, z = state
+    return jnp.array([
+        SIGMA * (y - x),
+        x * (RHO - z) - y,
+        x * y - BETA * z,
+    ])
+
+def lorenz_rhs_diffrax(t, state, args):
+    return lorenz_rhs(state)
+
+def gram_schmidt_qr(Q_raw, delta):
+    c1 = Q_raw[:, 0]
+    c2 = Q_raw[:, 1]
+    c3 = Q_raw[:, 2]
+
+    n1 = jnp.linalg.norm(c1) + 1e-30
+    u1 = c1 / n1
+    r1 = n1 / delta
+
+    c2p = c2 - jnp.dot(c2, u1) * u1
+    n2  = jnp.linalg.norm(c2p) + 1e-30
+    u2  = c2p / n2
+    r2  = n2 / delta
+
+    c3p = c3 - jnp.dot(c3, u1) * u1 - jnp.dot(c3, u2) * u2
+    n3  = jnp.linalg.norm(c3p) + 1e-30
+    u3  = c3p / n3
+    r3  = n3 / delta
+
+    Q_new = jnp.stack([u1 * delta, u2 * delta, u3 * delta], axis=1)
+    r     = jnp.array([r1, r2, r3])
+    return Q_new, r
+
+def _integrate_one_step(state):
+    sol = diffeqsolve(
+        _term_A, _solver_A,
+        t0=0.0, t1=DT, dt0=DT,
+        y0=state, args=None,
+        saveat=SaveAt(t1=True),
+        max_steps=50,
+    )
+    return sol.ys[-1]
+
+@jax.jit
+def method_A_step(carry, _):
+    state, Q = carry
+
+    next_state = _integrate_one_step(state)
+    perturbed_states   = state + Q
+
+    next_perturbed = jax.vmap(
+        _integrate_one_step
+    )(state + Q.T)
+
+    raw_dev = next_perturbed - next_state
+    Q_new, growth_r = gram_schmidt_qr(raw_dev.T, DELTA)
+
+    return (next_state, Q_new), growth_r
+
+@jax.jit
+def method_C_step(carry, _):
+    state, Q = carry
+    next_state = model(state)
+    next_perturbed = jax.vmap(model)(state + Q.T)
+    raw_dev = next_perturbed - next_state
+    Q_new, growth_r = gram_schmidt_qr(raw_dev.T, DELTA)
+    return (next_state, Q_new), growth_r
+
