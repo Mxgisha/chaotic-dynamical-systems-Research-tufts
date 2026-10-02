@@ -1,0 +1,155 @@
+backend=numpy model_backend=numpy out=runs
+
+=== test_0.05_10 ===
+  dataset: 18900 windows, eval 5000 steps
+Epoch   0 | lr 1.00e-03 | total 10.317521 | mse 10.031777 | l1 2.857435
+Epoch  10 | lr 1.00e-03 | total 0.090276 | mse 0.016711 | l1 0.735652
+Epoch  20 | lr 1.00e-03 | total 0.068819 | mse 0.011894 | l1 0.569254
+Epoch  30 | lr 5.96e-04 | total 0.050294 | mse 0.006244 | l1 0.440500
+Epoch  40 | lr 2.33e-04 | total 0.039812 | mse 0.003791 | l1 0.360213
+Epoch  49 | lr 1.00e-04 | total 0.031997 | mse 0.002845 | l1 0.291522
+  diagnostic: correlation_dimension
+  diagnostic: dmd_spectrum
+  diagnostic: error_growth
+  diagnostic: invariant_measure
+  diagnostic: lyapunov_spectrum
+  diagnostic: symbolic_dynamics
+  diagnostic: vector_field_slice
+
+=== test_0.1_10 ===
+  dataset: 18900 windows, eval 5000 steps
+Epoch   0 | lr 1.00e-03 | total 10.437715 | mse 10.135730 | l1 3.019851
+Epoch  10 | lr 1.00e-03 | total 0.109345 | mse 0.026130 | l1 0.832150
+Epoch  20 | lr 1.00e-03 | total 0.101875 | mse 0.025440 | l1 0.764345
+Epoch  30 | lr 5.96e-04 | total 0.077477 | mse 0.014179 | l1 0.632974
+Epoch  40 | lr 2.33e-04 | total 0.060203 | mse 0.010033 | l1 0.501699
+Epoch  49 | lr 1.00e-04 | total 0.055922 | mse 0.008978 | l1 0.469438
+  diagnostic: correlation_dimension
+  diagnostic: dmd_spectrum
+  diagnostic: error_growth
+  diagnostic: invariant_measure
+  diagnostic: lyapunov_spectrum
+  diagnostic: symbolic_dynamics
+  diagnostic: vector_field_slice
+
+=== test_0.4_10 ===
+  dataset: 18900 windows, eval 5000 steps
+Epoch   0 | lr 1.00e-03 | total 10.228269 | mse 9.890386 | l1 3.378830
+Epoch  10 | lr 1.00e-03 | total 0.314639 | mse 0.142689 | l1 1.719499
+Epoch  20 | lr 1.00e-03 | total 0.314204 | mse 0.140747 | l1 1.734566
+Epoch  30 | lr 5.96e-04 | total 0.292106 | mse 0.126585 | l1 1.655211
+Epoch  40 | lr 2.33e-04 | total 0.266441 | mse 0.114904 | l1 1.515377
+Epoch  49 | lr 1.00e-04 | total 0.266029 | mse 0.112258 | l1 1.537711
+  diagnostic: correlation_dimension
+  diagnostic: dmd_spectrum
+  diagnostic: error_growth
+  diagnostic: invariant_measure
+  diagnostic: lyapunov_spectrum
+  diagnostic: symbolic_dynamics
+  diagnostic: vector_field_slice
+
+=== test_0.1_20 ===
+  dataset: 17900 windows, eval 5000 steps
+Epoch   0 | lr 1.00e-03 | total 11.110490 | mse 10.793902 | l1 3.165880
+Epoch  10 | lr 1.00e-03 | total 0.105451 | mse 0.026482 | l1 0.789690
+Epoch  20 | lr 1.00e-03 | total 0.100792 | mse 0.023904 | l1 0.768879
+Epoch  30 | lr 5.96e-04 | total 0.072995 | mse 0.014032 | l1 0.589633
+Epoch  40 | lr 2.33e-04 | total 0.060859 | mse 0.010577 | l1 0.502822
+Epoch  49 | lr 1.00e-04 | total 0.054375 | mse 0.008988 | l1 0.453868
+  diagnostic: correlation_dimension
+  diagnostic: dmd_spectrum
+  diagnostic: error_growth
+  diagnostic: invariant_measure
+  diagnostic: lyapunov_spectrum
+  diagnostic: symbolic_dynamics
+  diagnostic: vector_field_slice
+
+sweep point            diagnostic               metric                       ratio
+----------------------------------------------------------------------------------
+test_0.05_10           correlation_dimension    d2                           1.159
+test_0.05_10           correlation_dimension    d2_hi                        0.882
+test_0.05_10           correlation_dimension    d2_lo                        1.021
+test_0.05_10           dmd_spectrum             mag_mean                     0.836
+test_0.05_10           dmd_spectrum             mag_top                      1.001
+test_0.05_10           dmd_spectrum             mag_top_ratio                1.001
+test_0.05_10           dmd_spectrum             spectrum_corr                0.981
+test_0.05_10           error_growth             growth_rate                  0.920
+test_0.05_10           error_growth             t_double                     1.088
+test_0.05_10           error_growth             t_sat                        1.122
+test_0.05_10           invariant_measure        energy_kurtosis              0.966
+test_0.05_10           invariant_measure        energy_mean                  1.009
+test_0.05_10           invariant_measure        energy_skew                  0.974
+test_0.05_10           invariant_measure        energy_std                   0.994
+test_0.05_10           lyapunov_spectrum        lambda_1                     0.838
+test_0.05_10           lyapunov_spectrum        lambda_2                    -0.502
+test_0.05_10           lyapunov_spectrum        lambda_3                     2.672
+test_0.05_10           lyapunov_spectrum        sum_lambda                   2.826
+test_0.05_10           lyapunov_spectrum        trace_invariant              2.826
+test_0.05_10           symbolic_dynamics        flip_rate                    1.100
+test_0.05_10           symbolic_dynamics        mean_dwell                   0.909
+test_0.1_10            correlation_dimension    d2                           1.108
+test_0.1_10            correlation_dimension    d2_hi                        1.058
+test_0.1_10            correlation_dimension    d2_lo                        0.994
+test_0.1_10            dmd_spectrum             mag_mean                     0.851
+test_0.1_10            dmd_spectrum             mag_top                      0.999
+test_0.1_10            dmd_spectrum             mag_top_ratio                0.999
+test_0.1_10            dmd_spectrum             spectrum_corr                0.947
+test_0.1_10            error_growth             growth_rate                  2.049
+test_0.1_10            error_growth             t_double                     0.488
+test_0.1_10            error_growth             t_sat                        0.129
+test_0.1_10            invariant_measure        energy_kurtosis              1.030
+test_0.1_10            invariant_measure        energy_mean                  0.993
+test_0.1_10            invariant_measure        energy_skew                  1.065
+test_0.1_10            invariant_measure        energy_std                   1.058
+test_0.1_10            lyapunov_spectrum        lambda_1                     0.768
+test_0.1_10            lyapunov_spectrum        lambda_2                    -0.091
+test_0.1_10            lyapunov_spectrum        lambda_3                     4.958
+test_0.1_10            lyapunov_spectrum        sum_lambda                   5.304
+test_0.1_10            lyapunov_spectrum        trace_invariant              5.304
+test_0.1_10            symbolic_dynamics        flip_rate                    1.097
+test_0.1_10            symbolic_dynamics        mean_dwell                   0.912
+test_0.4_10            correlation_dimension    d2                           0.415
+test_0.4_10            correlation_dimension    d2_hi                        0.525
+test_0.4_10            correlation_dimension    d2_lo                        0.418
+test_0.4_10            dmd_spectrum             mag_mean                     0.836
+test_0.4_10            dmd_spectrum             mag_top                      1.003
+test_0.4_10            dmd_spectrum             mag_top_ratio                1.003
+test_0.4_10            dmd_spectrum             spectral_gap                 4.826
+test_0.4_10            dmd_spectrum             spectrum_corr                0.979
+test_0.4_10            error_growth             growth_rate                  0.061
+test_0.4_10            error_growth             t_double                    16.479
+test_0.4_10            error_growth             t_sat                        4.587
+test_0.4_10            invariant_measure        energy_kurtosis              0.923
+test_0.4_10            invariant_measure        energy_mean                  0.927
+test_0.4_10            invariant_measure        energy_skew                  1.281
+test_0.4_10            invariant_measure        energy_std                   1.223
+test_0.4_10            lyapunov_spectrum        lambda_1                    -0.006
+test_0.4_10            lyapunov_spectrum        lambda_2                   -72.810
+test_0.4_10            lyapunov_spectrum        lambda_3                    23.342
+test_0.4_10            lyapunov_spectrum        sum_lambda                  25.071
+test_0.4_10            lyapunov_spectrum        trace_invariant             25.071
+test_0.4_10            symbolic_dynamics        flip_rate                    2.143
+test_0.4_10            symbolic_dynamics        mean_dwell                   0.467
+test_0.1_20            correlation_dimension    d2                           1.057
+test_0.1_20            correlation_dimension    d2_hi                        0.854
+test_0.1_20            correlation_dimension    d2_lo                        1.022
+test_0.1_20            dmd_spectrum             mag_mean                     0.902
+test_0.1_20            dmd_spectrum             mag_top                      1.004
+test_0.1_20            dmd_spectrum             mag_top_ratio                1.004
+test_0.1_20            dmd_spectrum             spectrum_corr                0.942
+test_0.1_20            error_growth             growth_rate                  0.689
+test_0.1_20            error_growth             t_double                     1.451
+test_0.1_20            error_growth             t_sat                        1.235
+test_0.1_20            invariant_measure        energy_kurtosis              1.055
+test_0.1_20            invariant_measure        energy_mean                  0.989
+test_0.1_20            invariant_measure        energy_skew                  1.086
+test_0.1_20            invariant_measure        energy_std                   1.008
+test_0.1_20            lyapunov_spectrum        lambda_1                     0.802
+test_0.1_20            lyapunov_spectrum        lambda_2                    -0.159
+test_0.1_20            lyapunov_spectrum        lambda_3                     4.542
+test_0.1_20            lyapunov_spectrum        sum_lambda                   4.844
+test_0.1_20            lyapunov_spectrum        trace_invariant              4.844
+test_0.1_20            symbolic_dynamics        flip_rate                    1.103
+test_0.1_20            symbolic_dynamics        mean_dwell                   0.906
+
+wrote runs/
