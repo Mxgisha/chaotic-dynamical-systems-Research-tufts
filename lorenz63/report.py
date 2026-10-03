@@ -32,6 +32,10 @@ from typing import Any
 
 import numpy as np
 
+# The true divergence of Lorenz-63 -- a constant, which is what makes the
+# local-contraction diagnostic interpretable.
+from lorenz63.system import DIVERGENCE as S_DIVERGENCE
+
 # Diagnostics may attach array-valued plotting state under keys starting with
 # this prefix; they are stripped before JSON serialisation.
 PLOT_PREFIX = "_"
@@ -58,6 +62,7 @@ NON_RATIO_KEYS = frozenset(
         "identity_n_unique_endpoints",
         "flip_ratio_vs_gtgt_control",
         "return_map_r",
+        "contraction_ratio",
     }
 )
 
@@ -181,6 +186,77 @@ def _add_legends(fig):
         handles, labels = ax.get_legend_handles_labels()
         if labels:
             ax.legend()
+
+
+def _render_contraction(result, fig):
+    """Four panels: the contraction distribution and where the error lives.
+
+    ``|x|`` and ``z`` are different quantities with different ranges, so they get
+    their own panels rather than sharing an axis.
+    """
+    e = result.emu
+    g = result.gt
+    gt_rate = g.get(f"{PLOT_PREFIX}rate")
+    emu_rate = e.get(f"{PLOT_PREFIX}rate")
+    x_edges = e.get(f"{PLOT_PREFIX}x_edges")
+    x_excess = e.get(f"{PLOT_PREFIX}x_excess")
+    z_edges = e.get(f"{PLOT_PREFIX}z_edges")
+    z_excess = e.get(f"{PLOT_PREFIX}z_excess")
+    gt_exp = g.get(f"{PLOT_PREFIX}expansion")
+
+    ax = _ax(fig, 2, 2, 1)
+    if gt_rate is not None and emu_rate is not None:
+        lo = float(min(gt_rate.min(), emu_rate.min()))
+        hi = float(max(gt_rate.max(), emu_rate.max()))
+        ax.hist(gt_rate, bins=np.linspace(lo, hi, 40), alpha=0.6,
+                label="true (constant)", color="#1f77b4")
+        ax.hist(emu_rate, bins=np.linspace(lo, hi, 40), alpha=0.6,
+                label="emulator", color="#d62728")
+        ax.axvline(S_DIVERGENCE, color="k", ls="--", lw=1, label="true divergence")
+        ax.set_yscale("log")
+    ax.set_xlabel("local contraction rate")
+    ax.set_ylabel("count")
+    ax.set_title("Contraction is spread out, not constant")
+    if gt_rate is not None:
+        ax.legend(fontsize=7)
+
+    ax2 = _ax(fig, 2, 2, 2)
+    if x_edges is not None and x_excess is not None:
+        mids = 0.5 * (np.asarray(x_edges[:-1]) + np.asarray(x_edges[1:]))
+        ax2.plot(mids, x_excess, "o-", color="#d62728")
+        ax2.set_xticks(mids)
+        ax2.set_xticklabels([f"{lo:g}-{hi:g}" for lo, hi in zip(x_edges[:-1], x_edges[1:])],
+                            rotation=45, fontsize=7)
+    ax2.set_xlabel("$|x|$ (distance from the saddle)")
+    ax2.set_ylabel("excess contraction")
+    ax2.set_title("Worst in the mid-lobes, best at the saddle")
+
+    ax3 = _ax(fig, 2, 2, 3)
+    if z_edges is not None and z_excess is not None:
+        mids = 0.5 * (np.asarray(z_edges[:-1]) + np.asarray(z_edges[1:]))
+        ax3.plot(mids, z_excess, "s--", color="#1f77b4")
+        ax3.set_xticks(mids)
+        ax3.set_xticklabels([f"{lo:g}-{hi:g}" for lo, hi in zip(z_edges[:-1], z_edges[1:])],
+                            rotation=45, fontsize=7)
+    ax3.set_xlabel("$z$")
+    ax3.set_ylabel("excess contraction")
+    ax3.set_title("Monotonic in altitude")
+
+    ax4 = _ax(fig, 2, 2, 4)
+    keys = ["contraction_rate_mean", "expansion_rate_mean"]
+    x = np.arange(len(keys))
+    ax4.bar(x - 0.2, [g.get(k, np.nan) for k in keys], width=0.4,
+            label="true", color="#1f77b4")
+    ax4.bar(x + 0.2, [e.get(k, np.nan) for k in keys], width=0.4,
+            label="emulator", color="#d62728")
+    ax4.axhline(S_DIVERGENCE, color="k", ls="--", lw=1, label="true divergence")
+    ax4.set_xticks(x)
+    ax4.set_xticklabels(["contraction", "expansion"])
+    ax4.set_title(f"Deficit {e.get('contraction_ratio', float('nan')):.2f}x"
+                  f"  (spread {e.get('contraction_ratio_std', float('nan')):.2f})")
+    ax4.legend(fontsize=7)
+    fig.tight_layout()
+    return fig
 
 
 def _render_lyapunov(result, fig):
@@ -354,6 +430,7 @@ def _render_field(result, fig):
 
 RENDERERS = {
     "lyapunov_spectrum": _render_lyapunov,
+    "local_contraction": _render_contraction,
     "invariant_measure": _render_measure,
     "correlation_dimension": _render_correlation,
     "symbolic_dynamics": _render_return_map,

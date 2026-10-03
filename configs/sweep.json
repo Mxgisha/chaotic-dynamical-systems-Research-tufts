@@ -37,6 +37,7 @@
   },
   "diagnostics": {
     "lyapunov_spectrum": {},
+    "local_contraction": {"n_states": 600},
     "invariant_measure": {"n_bins": 100},
     "correlation_dimension": {"n_points": 600, "theiler": 10, "n_boot": 12},
     "symbolic_dynamics": {"x_threshold": 0.0},
@@ -55,6 +56,7 @@
     "epochs": 15,
     "diagnostics": {
       "lyapunov_spectrum": {},
+      "local_contraction": {"n_states": 300},
       "correlation_dimension": {"n_points": 400, "n_boot": 4},
       "error_growth": {"steps": 1200, "scales": [1e-4, 1e-6, 1e-8]},
       "vector_field_slice": {"res": 14},

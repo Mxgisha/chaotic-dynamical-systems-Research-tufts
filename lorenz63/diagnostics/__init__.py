@@ -78,6 +78,7 @@ def run_registered(names=None, **kwargs):
 import importlib as _importlib  # noqa: E402
 
 for _mod in (
+    "contraction",
     "dimension",
     "divergence",
     "dmd",

@@ -2,6 +2,248 @@
   {
     "point_a": "test_0.05_10",
     "point_b": "test_0.4_10",
+    "mean_a": 246.34317161579824,
+    "mean_b": 2629.476257202483,
+    "difference": 2383.1330855866845,
+    "combined_se": 33.66364548369836,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "divergence_error"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 459.56053250645846,
+    "mean_b": 2629.476257202483,
+    "difference": 2169.9157246960244,
+    "combined_se": 40.532502907621804,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "divergence_error"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 551.396668030297,
+    "mean_b": 2629.476257202483,
+    "difference": 2078.079589172186,
+    "combined_se": 51.8703766773957,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "divergence_error"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 61.957062595727194,
+    "mean_b": 378.4373737407864,
+    "difference": 316.4803111450592,
+    "combined_se": 12.734439857089905,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 61.95706259572719,
+    "mean_b": 378.43737374078626,
+    "difference": 316.4803111450591,
+    "combined_se": 12.7344398570899,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_ratio_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 246.34317161579824,
+    "mean_b": 551.396668030297,
+    "difference": 305.0534964144987,
+    "combined_se": 47.093301036505025,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "divergence_error"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 113.2581133286661,
+    "mean_b": 378.4373737407864,
+    "difference": 265.17926041212036,
+    "combined_se": 14.28433820386773,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_std"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 113.25811332866606,
+    "mean_b": 378.43737374078626,
+    "difference": 265.1792604121202,
+    "combined_se": 14.284338203867723,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_ratio_std"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 147.30925806747183,
+    "mean_b": 378.4373737407864,
+    "difference": 231.1281156733146,
+    "combined_se": 22.68361648796501,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_std"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 147.30925806747183,
+    "mean_b": 378.43737374078626,
+    "difference": 231.12811567331443,
+    "combined_se": 22.68361648796501,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_ratio_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 246.34317161579824,
+    "mean_b": 459.56053250645846,
+    "difference": 213.21736089066022,
+    "combined_se": 35.75542726673114,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "divergence_error"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 551.396668030297,
+    "mean_b": 459.56053250645846,
+    "difference": 91.8361355238385,
+    "combined_se": 53.96215846042847,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "divergence_error"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 61.957062595727194,
+    "mean_b": 147.30925806747183,
+    "difference": 85.35219547174464,
+    "combined_se": 19.194969707759334,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 61.95706259572719,
+    "mean_b": 147.30925806747183,
+    "difference": 85.35219547174464,
+    "combined_se": 19.194969707759334,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_ratio_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 61.957062595727194,
+    "mean_b": 113.2581133286661,
+    "difference": 51.301050732938904,
+    "combined_se": 10.795691423662051,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 61.95706259572719,
+    "mean_b": 113.25811332866606,
+    "difference": 51.30105073293887,
+    "combined_se": 10.79569142366205,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_ratio_std"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 147.30925806747183,
+    "mean_b": 113.25811332866606,
+    "difference": 34.051144738805775,
+    "combined_se": 20.74486805453716,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_ratio_std"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 147.30925806747183,
+    "mean_b": 113.2581133286661,
+    "difference": 34.05114473880573,
+    "combined_se": 20.744868054537157,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 6.417246764959763,
+    "mean_b": 38.54292578968752,
+    "difference": 32.12567902472776,
+    "combined_se": 0.7765898803538704,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p05"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 11.107597315070803,
+    "mean_b": 38.54292578968752,
+    "difference": 27.435328474616718,
+    "combined_se": 0.9730426082264307,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p05"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 13.825695668454872,
+    "mean_b": 38.54292578968752,
+    "difference": 24.717230121232653,
+    "combined_se": 1.7489007034397304,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p05"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 2.1891644041532548,
+    "mean_b": 21.724721589291043,
+    "difference": 19.53555718513779,
+    "combined_se": 0.3155106469652104,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p50"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
     "mean_a": 2.8241034571163794,
     "mean_b": 22.131759097032052,
     "difference": 19.307655639915673,
@@ -20,6 +262,17 @@
     "resolvable": true,
     "diagnostic": "lyapunov_spectrum",
     "metric": "trace_invariant"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 2.9364466704044503,
+    "mean_b": 22.034789819633296,
+    "difference": 19.098343149228846,
+    "combined_se": 0.2678120050190849,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_mean"
   },
   {
     "point_a": "test_0.1_20",
@@ -44,6 +297,17 @@
     "metric": "mean_dwell"
   },
   {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 3.4928070334003265,
+    "mean_b": 21.724721589291043,
+    "difference": 18.231914555890718,
+    "combined_se": 0.361064852885404,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p50"
+  },
+  {
     "point_a": "test_0.05_10",
     "point_b": "test_0.4_10",
     "mean_a": 1.5126638176638174,
@@ -53,6 +317,17 @@
     "resolvable": true,
     "diagnostic": "symbolic_dynamics",
     "metric": "mean_dwell"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 3.7958475592729313,
+    "mean_b": 21.724721589291043,
+    "difference": 17.92887403001811,
+    "combined_se": 0.3525270720213627,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p50"
   },
   {
     "point_a": "test_0.1_10",
@@ -90,6 +365,17 @@
   {
     "point_a": "test_0.1_20",
     "point_b": "test_0.4_10",
+    "mean_a": 4.837343121292835,
+    "mean_b": 22.034789819633296,
+    "difference": 17.19744669834046,
+    "combined_se": 0.3321589767948522,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_mean"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
     "mean_a": 4.9919942919266544,
     "mean_b": 22.131759097032052,
     "difference": 17.139764805105397,
@@ -108,6 +394,17 @@
     "resolvable": true,
     "diagnostic": "lyapunov_spectrum",
     "metric": "trace_invariant"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 5.243284500399315,
+    "mean_b": 22.034789819633296,
+    "difference": 16.79150531923398,
+    "combined_se": 0.40552930460986636,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_mean"
   },
   {
     "point_a": "test_0.1_10",
@@ -178,6 +475,72 @@
   {
     "point_a": "test_0.05_10",
     "point_b": "test_0.1_10",
+    "mean_a": 6.417246764959763,
+    "mean_b": 13.825695668454872,
+    "difference": 7.408448903495109,
+    "combined_se": 1.702885716381135,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p05"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 6.417246764959763,
+    "mean_b": 11.107597315070803,
+    "difference": 4.690350550111041,
+    "combined_se": 0.9270276211678353,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p05"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.1568974108290628,
+    "mean_b": 5.78379587619754,
+    "difference": 4.626898465368477,
+    "combined_se": 0.24633204440847678,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p95"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.4165522972226565,
+    "mean_b": 5.78379587619754,
+    "difference": 4.367243578974883,
+    "combined_se": 0.28782198639931933,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p95"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.504829445095992,
+    "mean_b": 5.78379587619754,
+    "difference": 4.278966431101548,
+    "combined_se": 0.22665215125253546,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p95"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 13.825695668454872,
+    "mean_b": 11.107597315070803,
+    "difference": 2.718098353384068,
+    "combined_se": 1.8993384442536951,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p05"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
     "mean_a": 2.8241034571163794,
     "mean_b": 5.503811593276259,
     "difference": 2.6797081361598796,
@@ -207,6 +570,17 @@
     "resolvable": true,
     "diagnostic": "lyapunov_spectrum",
     "metric": "lambda_3"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 2.9364466704044503,
+    "mean_b": 5.243284500399315,
+    "difference": 2.3068378299948646,
+    "combined_se": 0.36571346358880413,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_mean"
   },
   {
     "point_a": "test_0.05_10",
@@ -275,6 +649,17 @@
     "metric": "t_sat"
   },
   {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 2.9364466704044503,
+    "mean_b": 4.837343121292835,
+    "difference": 1.9008964508883848,
+    "combined_se": 0.29234313577378995,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_mean"
+  },
+  {
     "point_a": "test_0.1_20",
     "point_b": "test_0.4_10",
     "mean_a": 0.6839172835525438,
@@ -319,6 +704,17 @@
     "metric": "growth_rate"
   },
   {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 2.1891644041532548,
+    "mean_b": 3.7958475592729313,
+    "difference": 1.6066831551196765,
+    "combined_se": 0.1628252477956617,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p50"
+  },
+  {
     "point_a": "test_0.1_10",
     "point_b": "test_0.4_10",
     "mean_a": 2.116296296296296,
@@ -328,6 +724,17 @@
     "resolvable": true,
     "diagnostic": "error_growth",
     "metric": "t_sat"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 2.1891644041532548,
+    "mean_b": 3.4928070334003265,
+    "difference": 1.3036426292470717,
+    "combined_se": 0.17136302865970304,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p50"
   },
   {
     "point_a": "test_0.1_10",
@@ -495,6 +902,17 @@
     "metric": "energy_skew"
   },
   {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.3245360939319824,
+    "mean_b": 0.8669059150233076,
+    "difference": 0.45763017890867475,
+    "combined_se": 0.06369833283394555,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_mean"
+  },
+  {
     "point_a": "test_0.1_10",
     "point_b": "test_0.4_10",
     "mean_a": 0.9968298074079229,
@@ -528,6 +946,17 @@
     "metric": "d2"
   },
   {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.5225948361020937,
+    "mean_b": 0.9402819832350122,
+    "difference": 0.41768714713291855,
+    "combined_se": 0.07493072824876476,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_expansion_gt_vs_emu"
+  },
+  {
     "point_a": "test_0.1_10",
     "point_b": "test_0.4_10",
     "mean_a": 0.9523038009988847,
@@ -548,6 +977,17 @@
     "resolvable": true,
     "diagnostic": "invariant_measure",
     "metric": "energy_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 0.5225948361020937,
+    "mean_b": 0.9066094455824351,
+    "difference": 0.3840146094803414,
+    "combined_se": 0.08180771412812797,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_expansion_gt_vs_emu"
   },
   {
     "point_a": "test_0.05_10",
@@ -584,6 +1024,17 @@
   },
   {
     "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 1.1568974108290628,
+    "mean_b": 1.504829445095992,
+    "difference": 0.3479320342669292,
+    "combined_se": 0.05631961969379291,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p95"
+  },
+  {
+    "point_a": "test_0.05_10",
     "point_b": "test_0.4_10",
     "mean_a": 0.8805387228335039,
     "mean_b": 0.5348512130294374,
@@ -606,6 +1057,39 @@
   },
   {
     "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.01769958626006767,
+    "mean_b": -0.3116421304291917,
+    "difference": 0.3293417166892594,
+    "combined_se": 0.0691042812106076,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_contraction_gt_vs_emu"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.00286904828486191,
+    "mean_b": -0.3116421304291917,
+    "difference": 0.3145111787140536,
+    "combined_se": 0.055912496385566814,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_contraction_gt_vs_emu"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 0.5225948361020937,
+    "mean_b": 0.8283551874767536,
+    "difference": 0.30576035137465996,
+    "combined_se": 0.11251492953761175,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_expansion_gt_vs_emu"
+  },
+  {
+    "point_a": "test_0.05_10",
     "point_b": "test_0.1_10",
     "mean_a": 1.2595715681421165,
     "mean_b": 0.9545215719982377,
@@ -614,6 +1098,28 @@
     "resolvable": true,
     "diagnostic": "invariant_measure",
     "metric": "energy_kurtosis"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 3.7958475592729313,
+    "mean_b": 3.4928070334003265,
+    "difference": 0.30304052587260477,
+    "combined_se": 0.2083794537158553,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p50"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": -0.01293065667075,
+    "mean_b": -0.3116421304291917,
+    "difference": 0.2987114737584417,
+    "combined_se": 0.058720239273718694,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_contraction_gt_vs_emu"
   },
   {
     "point_a": "test_0.1_20",
@@ -627,6 +1133,83 @@
     "metric": "d2_lo"
   },
   {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.8139249337364529,
+    "mean_b": 1.0943763250119964,
+    "difference": 0.2804513912755435,
+    "combined_se": 0.025848583766390876,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 1.1568974108290628,
+    "mean_b": 1.4165522972226565,
+    "difference": 0.2596548863935937,
+    "combined_se": 0.11748945484057675,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p95"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 1.3245360939319824,
+    "mean_b": 1.0849239947483191,
+    "difference": 0.23961209918366322,
+    "combined_se": 0.0428020672158643,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_mean"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 1.3245360939319824,
+    "mean_b": 1.0908956941392296,
+    "difference": 0.23364039979275275,
+    "combined_se": 0.06739600236299217,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_mean"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.0908956941392296,
+    "mean_b": 0.8669059150233076,
+    "difference": 0.223989779115922,
+    "combined_se": 0.06261417830525126,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_mean"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.0849239947483191,
+    "mean_b": 0.8669059150233076,
+    "difference": 0.21801807972501153,
+    "combined_se": 0.03802024315812339,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_mean"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.8858414822184575,
+    "mean_b": 1.0943763250119964,
+    "difference": 0.20853484279353895,
+    "combined_se": 0.029857739682603576,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_std"
+  },
+  {
     "point_a": "test_0.1_10",
     "point_b": "test_0.1_20",
     "mean_a": 0.9545215719982377,
@@ -636,6 +1219,17 @@
     "resolvable": true,
     "diagnostic": "invariant_measure",
     "metric": "energy_kurtosis"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.9103723423668001,
+    "mean_b": 1.0943763250119964,
+    "difference": 0.18400398264519635,
+    "combined_se": 0.0891732092559475,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_std"
   },
   {
     "point_a": "test_0.05_10",
@@ -671,6 +1265,17 @@
     "metric": "spectrum_corr"
   },
   {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.8283551874767536,
+    "mean_b": 0.9402819832350122,
+    "difference": 0.11192679575825859,
+    "combined_se": 0.048936076353610525,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_expansion_gt_vs_emu"
+  },
+  {
     "point_a": "test_0.1_20",
     "point_b": "test_0.4_10",
     "mean_a": 0.938003931708332,
@@ -695,6 +1300,17 @@
   {
     "point_a": "test_0.05_10",
     "point_b": "test_0.1_20",
+    "mean_a": 0.9103723423668001,
+    "mean_b": 0.8139249337364529,
+    "difference": 0.09644740863034718,
+    "combined_se": 0.08951422919558509,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_std"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
     "mean_a": 0.8805387228335039,
     "mean_b": 0.9723186963694039,
     "difference": 0.09177997353590006,
@@ -713,6 +1329,28 @@
     "resolvable": true,
     "diagnostic": "invariant_measure",
     "metric": "energy_mean"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 0.8283551874767536,
+    "mean_b": 0.9066094455824351,
+    "difference": 0.07825425810568143,
+    "combined_se": 0.05581306223297375,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_expansion_gt_vs_emu"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 0.8858414822184575,
+    "mean_b": 0.8139249337364529,
+    "difference": 0.07191654848200457,
+    "combined_se": 0.030198759622241163,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_std"
   },
   {
     "point_a": "test_0.05_10",
@@ -757,6 +1395,17 @@
     "resolvable": true,
     "diagnostic": "dmd_spectrum",
     "metric": "spectrum_corr"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 0.9066094455824351,
+    "mean_b": 0.9402819832350122,
+    "difference": 0.03367253765257716,
+    "combined_se": 0.01822886094412675,
+    "resolvable": true,
+    "diagnostic": "local_contraction",
+    "metric": "corr_expansion_gt_vs_emu"
   },
   {
     "point_a": "test_0.1_10",
@@ -957,6 +1606,17 @@
     "metric": "mean_dwell"
   },
   {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 5.243284500399315,
+    "mean_b": 4.837343121292835,
+    "difference": 0.40594137910647987,
+    "combined_se": 0.4300604353645714,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_mean"
+  },
+  {
     "point_a": "test_0.1_20",
     "point_b": "test_0.4_10",
     "mean_a": 0.7612903225806452,
@@ -1100,6 +1760,17 @@
     "metric": "energy_std"
   },
   {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 1.4165522972226565,
+    "mean_b": 1.504829445095992,
+    "difference": 0.08827714787333552,
+    "combined_se": 0.09780956168463542,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "contraction_rate_p95"
+  },
+  {
     "point_a": "test_0.05_10",
     "point_b": "test_0.1_20",
     "mean_a": 0.8067528317173905,
@@ -1211,6 +1882,17 @@
   },
   {
     "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 0.01769958626006767,
+    "mean_b": -0.01293065667075,
+    "difference": 0.030630242930817668,
+    "combined_se": 0.05385078450535836,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "corr_contraction_gt_vs_emu"
+  },
+  {
+    "point_a": "test_0.05_10",
     "point_b": "test_0.1_10",
     "mean_a": 1.012455206570743,
     "mean_b": 0.9867096975821027,
@@ -1230,6 +1912,17 @@
     "resolvable": false,
     "diagnostic": "error_growth",
     "metric": "t_double"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 0.9103723423668001,
+    "mean_b": 0.8858414822184575,
+    "difference": 0.024530860148342604,
+    "combined_se": 0.0935233851117978,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_std"
   },
   {
     "point_a": "test_0.05_10",
@@ -1265,6 +1958,28 @@
     "metric": "d2_hi"
   },
   {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 0.00286904828486191,
+    "mean_b": -0.01293065667075,
+    "difference": 0.01579970495561191,
+    "combined_se": 0.04065899968031756,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "corr_contraction_gt_vs_emu"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 0.01769958626006767,
+    "mean_b": 0.00286904828486191,
+    "difference": 0.014830537975205758,
+    "combined_se": 0.05104304161720648,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "corr_contraction_gt_vs_emu"
+  },
+  {
     "point_a": "test_0.05_10",
     "point_b": "test_0.1_20",
     "mean_a": 0.8396693210870599,
@@ -1296,6 +2011,17 @@
     "resolvable": false,
     "diagnostic": "lyapunov_spectrum",
     "metric": "lambda_1"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 1.0908956941392296,
+    "mean_b": 1.0849239947483191,
+    "difference": 0.005971699390910468,
+    "combined_se": 0.041717912687170004,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "expansion_rate_mean"
   },
   {
     "point_a": "test_0.1_20",
@@ -1384,5 +2110,71 @@
     "resolvable": false,
     "diagnostic": "dmd_spectrum",
     "metric": "mag_top_ratio"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_10",
+    "mean_a": 1.0,
+    "mean_b": 1.0,
+    "difference": 0.0,
+    "combined_se": 0.0,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "true_divergence"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 1.0,
+    "mean_b": 1.0,
+    "difference": 0.0,
+    "combined_se": 0.0,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "true_divergence"
+  },
+  {
+    "point_a": "test_0.05_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.0,
+    "mean_b": 1.0,
+    "difference": 0.0,
+    "combined_se": 0.0,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "true_divergence"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.1_20",
+    "mean_a": 1.0,
+    "mean_b": 1.0,
+    "difference": 0.0,
+    "combined_se": 0.0,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "true_divergence"
+  },
+  {
+    "point_a": "test_0.1_10",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.0,
+    "mean_b": 1.0,
+    "difference": 0.0,
+    "combined_se": 0.0,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "true_divergence"
+  },
+  {
+    "point_a": "test_0.1_20",
+    "point_b": "test_0.4_10",
+    "mean_a": 1.0,
+    "mean_b": 1.0,
+    "difference": 0.0,
+    "combined_se": 0.0,
+    "resolvable": false,
+    "diagnostic": "local_contraction",
+    "metric": "true_divergence"
   }
 ]

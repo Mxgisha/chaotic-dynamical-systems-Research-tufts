@@ -1,4 +1,4 @@
-backend=numpy model_backend=numpy replicates=5 out=runs_replicated
+backend=numpy model_backend=numpy replicates=5 out=runs_new
 
 === test_0.05_10 ===
   building ground truth and controls (shared across replicates)
@@ -14,6 +14,7 @@ Epoch  49 | lr 1.00e-04 | total 0.029978 | mse 0.002904 | l1 0.270739
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -28,6 +29,7 @@ Epoch  49 | lr 1.00e-04 | total 0.029418 | mse 0.002786 | l1 0.266318
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -42,6 +44,7 @@ Epoch  49 | lr 1.00e-04 | total 0.027735 | mse 0.002722 | l1 0.250127
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -56,6 +59,7 @@ Epoch  49 | lr 1.00e-04 | total 0.028488 | mse 0.002790 | l1 0.256977
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -70,6 +74,7 @@ Epoch  49 | lr 1.00e-04 | total 0.028338 | mse 0.002708 | l1 0.256297
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -88,6 +93,7 @@ Epoch  49 | lr 1.00e-04 | total 0.050434 | mse 0.008929 | l1 0.415050
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -102,6 +108,7 @@ Epoch  49 | lr 1.00e-04 | total 0.051533 | mse 0.009158 | l1 0.423750
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -116,6 +123,7 @@ Epoch  49 | lr 1.00e-04 | total 0.050925 | mse 0.008801 | l1 0.421244
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -130,6 +138,7 @@ Epoch  49 | lr 1.00e-04 | total 0.050403 | mse 0.008785 | l1 0.416175
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -144,6 +153,7 @@ Epoch  49 | lr 1.00e-04 | total 0.050873 | mse 0.008878 | l1 0.419950
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -162,6 +172,7 @@ Epoch  49 | lr 1.00e-04 | total 0.244252 | mse 0.112510 | l1 1.317419
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -176,6 +187,7 @@ Epoch  49 | lr 1.00e-04 | total 0.244738 | mse 0.112302 | l1 1.324357
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -190,6 +202,7 @@ Epoch  49 | lr 1.00e-04 | total 0.246282 | mse 0.112643 | l1 1.336390
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -204,6 +217,7 @@ Epoch  49 | lr 1.00e-04 | total 0.247548 | mse 0.112862 | l1 1.346864
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -218,6 +232,7 @@ Epoch  49 | lr 1.00e-04 | total 0.247310 | mse 0.112553 | l1 1.347569
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -236,6 +251,7 @@ Epoch  49 | lr 1.00e-04 | total 0.056167 | mse 0.008994 | l1 0.471727
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -250,6 +266,7 @@ Epoch  49 | lr 1.00e-04 | total 0.055464 | mse 0.009120 | l1 0.463438
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -264,6 +281,7 @@ Epoch  49 | lr 1.00e-04 | total 0.054488 | mse 0.008944 | l1 0.455444
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -278,6 +296,7 @@ Epoch  49 | lr 1.00e-04 | total 0.054084 | mse 0.008947 | l1 0.451371
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -292,6 +311,7 @@ Epoch  49 | lr 1.00e-04 | total 0.056314 | mse 0.009128 | l1 0.471858
     diagnostic: dmd_spectrum
     diagnostic: error_growth
     diagnostic: invariant_measure
+    diagnostic: local_contraction
     diagnostic: lyapunov_spectrum
     diagnostic: symbolic_dynamics
     diagnostic: vector_field_slice
@@ -312,6 +332,18 @@ test_0.05_10           invariant_measure        energy_kurtosis              0.9
 test_0.05_10           invariant_measure        energy_mean                  0.979
 test_0.05_10           invariant_measure        energy_skew                  1.048
 test_0.05_10           invariant_measure        energy_std                   1.033
+test_0.05_10           local_contraction        contraction_rate_mean        2.741
+test_0.05_10           local_contraction        contraction_rate_p05         5.619
+test_0.05_10           local_contraction        contraction_rate_p50         2.180
+test_0.05_10           local_contraction        contraction_rate_p95         1.170
+test_0.05_10           local_contraction        contraction_rate_std        52.563
+test_0.05_10           local_contraction        contraction_ratio_std       52.563
+test_0.05_10           local_contraction        corr_contraction_gt_vs_emu     0.048
+test_0.05_10           local_contraction        corr_expansion_gt_vs_emu     0.419
+test_0.05_10           local_contraction        divergence_error           221.572
+test_0.05_10           local_contraction        expansion_rate_mean          1.323
+test_0.05_10           local_contraction        expansion_rate_std           0.942
+test_0.05_10           local_contraction        true_divergence              1.000
 test_0.05_10           lyapunov_spectrum        lambda_1                     0.814
 test_0.05_10           lyapunov_spectrum        lambda_2                    -0.561
 test_0.05_10           lyapunov_spectrum        lambda_3                     2.584
@@ -333,6 +365,18 @@ test_0.1_10            invariant_measure        energy_kurtosis              0.9
 test_0.1_10            invariant_measure        energy_mean                  0.974
 test_0.1_10            invariant_measure        energy_skew                  1.073
 test_0.1_10            invariant_measure        energy_std                   1.059
+test_0.1_10            local_contraction        contraction_rate_mean        4.926
+test_0.1_10            local_contraction        contraction_rate_p05        12.541
+test_0.1_10            local_contraction        contraction_rate_p50         3.633
+test_0.1_10            local_contraction        contraction_rate_p95         1.496
+test_0.1_10            local_contraction        contraction_rate_std       130.300
+test_0.1_10            local_contraction        contraction_ratio_std      130.300
+test_0.1_10            local_contraction        corr_contraction_gt_vs_emu     0.024
+test_0.1_10            local_contraction        corr_expansion_gt_vs_emu     0.834
+test_0.1_10            local_contraction        divergence_error           510.188
+test_0.1_10            local_contraction        expansion_rate_mean          1.099
+test_0.1_10            local_contraction        expansion_rate_std           0.872
+test_0.1_10            local_contraction        true_divergence              1.000
 test_0.1_10            lyapunov_spectrum        lambda_1                     0.728
 test_0.1_10            lyapunov_spectrum        lambda_2                    -0.505
 test_0.1_10            lyapunov_spectrum        lambda_3                     4.439
@@ -354,6 +398,18 @@ test_0.4_10            invariant_measure        energy_kurtosis              0.6
 test_0.4_10            invariant_measure        energy_mean                  1.054
 test_0.4_10            invariant_measure        energy_skew                  0.400
 test_0.4_10            invariant_measure        energy_std                   0.437
+test_0.4_10            local_contraction        contraction_rate_mean       22.423
+test_0.4_10            local_contraction        contraction_rate_p05        38.928
+test_0.4_10            local_contraction        contraction_rate_p50        21.908
+test_0.4_10            local_contraction        contraction_rate_p95         5.797
+test_0.4_10            local_contraction        contraction_rate_std       385.809
+test_0.4_10            local_contraction        contraction_ratio_std      385.809
+test_0.4_10            local_contraction        corr_contraction_gt_vs_emu    -0.242
+test_0.4_10            local_contraction        corr_expansion_gt_vs_emu     0.935
+test_0.4_10            local_contraction        divergence_error          2677.942
+test_0.4_10            local_contraction        expansion_rate_mean          0.855
+test_0.4_10            local_contraction        expansion_rate_std           1.105
+test_0.4_10            local_contraction        true_divergence              1.000
 test_0.4_10            lyapunov_spectrum        lambda_1                    -0.029
 test_0.4_10            lyapunov_spectrum        lambda_2                    -2.549
 test_0.4_10            lyapunov_spectrum        lambda_3                    19.138
@@ -375,6 +431,18 @@ test_0.1_20            invariant_measure        energy_kurtosis              1.0
 test_0.1_20            invariant_measure        energy_mean                  1.023
 test_0.1_20            invariant_measure        energy_skew                  1.006
 test_0.1_20            invariant_measure        energy_std                   1.007
+test_0.1_20            local_contraction        contraction_rate_mean        4.769
+test_0.1_20            local_contraction        contraction_rate_p05        10.703
+test_0.1_20            local_contraction        contraction_rate_p50         3.364
+test_0.1_20            local_contraction        contraction_rate_p95         1.580
+test_0.1_20            local_contraction        contraction_rate_std       107.864
+test_0.1_20            local_contraction        contraction_ratio_std      107.864
+test_0.1_20            local_contraction        corr_contraction_gt_vs_emu     0.023
+test_0.1_20            local_contraction        corr_expansion_gt_vs_emu     0.863
+test_0.1_20            local_contraction        divergence_error           451.437
+test_0.1_20            local_contraction        expansion_rate_mean          1.109
+test_0.1_20            local_contraction        expansion_rate_std           0.800
+test_0.1_20            local_contraction        true_divergence              1.000
 test_0.1_20            lyapunov_spectrum        lambda_1                     0.822
 test_0.1_20            lyapunov_spectrum        lambda_2                    -0.272
 test_0.1_20            lyapunov_spectrum        lambda_3                     4.360
@@ -400,6 +468,18 @@ test_0.05_10     invariant_measure      energy_kurtosis          1.260    0.611 
 test_0.05_10     invariant_measure      energy_mean              1.012    0.043    0.043   5
 test_0.05_10     invariant_measure      energy_skew              0.920    0.187    0.204   5
 test_0.05_10     invariant_measure      energy_std               0.933    0.186    0.200   5
+test_0.05_10     local_contraction      contraction_rate_mean     2.936    0.255    0.087   5
+test_0.05_10     local_contraction      contraction_rate_p05     6.417    0.817    0.127   5
+test_0.05_10     local_contraction      contraction_rate_p50     2.189    0.141    0.064   5
+test_0.05_10     local_contraction      contraction_rate_p95     1.157    0.085    0.073   5
+test_0.05_10     local_contraction      contraction_rate_std    61.957   10.337    0.167   5
+test_0.05_10     local_contraction      contraction_ratio_std    61.957   10.337    0.167   5
+test_0.05_10     local_contraction      corr_contraction_gt_vs_emu     0.018    0.072    4.058   5
+test_0.05_10     local_contraction      corr_expansion_gt_vs_emu     0.523    0.155    0.296   5
+test_0.05_10     local_contraction      divergence_error       246.343   32.296    0.131   5
+test_0.05_10     local_contraction      expansion_rate_mean      1.325    0.077    0.058   5
+test_0.05_10     local_contraction      expansion_rate_std       0.910    0.171    0.188   5
+test_0.05_10     local_contraction      true_divergence          1.000    0.000    0.000   5
 test_0.05_10     lyapunov_spectrum      lambda_1                 0.677    0.248    0.366   5
 test_0.05_10     lyapunov_spectrum      lambda_2                -0.519    0.214    0.412   5
 test_0.05_10     lyapunov_spectrum      lambda_3                 2.656    0.335    0.126   5
@@ -421,6 +501,18 @@ test_0.1_10      invariant_measure      energy_kurtosis          0.955    0.030 
 test_0.1_10      invariant_measure      energy_mean              0.987    0.043    0.044   5
 test_0.1_10      invariant_measure      energy_skew              0.981    0.159    0.162   5
 test_0.1_10      invariant_measure      energy_std               0.997    0.116    0.117   5
+test_0.1_10      local_contraction      contraction_rate_mean     5.243    0.563    0.107   5
+test_0.1_10      local_contraction      contraction_rate_p05    13.826    2.991    0.216   5
+test_0.1_10      local_contraction      contraction_rate_p50     3.796    0.223    0.059   5
+test_0.1_10      local_contraction      contraction_rate_p95     1.417    0.178    0.125   5
+test_0.1_10      local_contraction      contraction_rate_std   147.309   32.584    0.221   5
+test_0.1_10      local_contraction      contraction_ratio_std   147.309   32.584    0.221   5
+test_0.1_10      local_contraction      corr_contraction_gt_vs_emu     0.003    0.042   14.750   5
+test_0.1_10      local_contraction      corr_expansion_gt_vs_emu     0.828    0.097    0.117   5
+test_0.1_10      local_contraction      divergence_error       551.397   73.008    0.132   5
+test_0.1_10      local_contraction      expansion_rate_mean      1.091    0.074    0.068   5
+test_0.1_10      local_contraction      expansion_rate_std       0.886    0.038    0.043   5
+test_0.1_10      local_contraction      true_divergence          1.000    0.000    0.000   5
 test_0.1_10      lyapunov_spectrum      lambda_1                 0.683    0.245    0.358   5
 test_0.1_10      lyapunov_spectrum      lambda_2                -0.343    0.130    0.379   5
 test_0.1_10      lyapunov_spectrum      lambda_3                 5.143    0.638    0.124   5
@@ -442,6 +534,18 @@ test_0.1_20      invariant_measure      energy_kurtosis          1.148    0.158 
 test_0.1_20      invariant_measure      energy_mean              0.979    0.159    0.162   5
 test_0.1_20      invariant_measure      energy_skew              0.897    0.455    0.507   5
 test_0.1_20      invariant_measure      energy_std               0.901    0.256    0.284   5
+test_0.1_20      local_contraction      contraction_rate_mean     4.837    0.399    0.082   5
+test_0.1_20      local_contraction      contraction_rate_p05    11.108    1.256    0.113   5
+test_0.1_20      local_contraction      contraction_rate_p50     3.493    0.243    0.069   5
+test_0.1_20      local_contraction      contraction_rate_p95     1.505    0.041    0.027   5
+test_0.1_20      local_contraction      contraction_rate_std   113.258   13.803    0.122   5
+test_0.1_20      local_contraction      contraction_ratio_std   113.258   13.803    0.122   5
+test_0.1_20      local_contraction      corr_contraction_gt_vs_emu    -0.013    0.049    3.758   5
+test_0.1_20      local_contraction      corr_expansion_gt_vs_emu     0.907    0.028    0.031   5
+test_0.1_20      local_contraction      divergence_error       459.561   47.655    0.104   5
+test_0.1_20      local_contraction      expansion_rate_mean      1.085    0.019    0.018   5
+test_0.1_20      local_contraction      expansion_rate_std       0.814    0.029    0.036   5
+test_0.1_20      local_contraction      true_divergence          1.000    0.000    0.000   5
 test_0.1_20      lyapunov_spectrum      lambda_1                -0.145    1.543   10.642   5
 test_0.1_20      lyapunov_spectrum      lambda_2               -18.237   35.265    1.934   5
 test_0.1_20      lyapunov_spectrum      lambda_3                 4.476    0.587    0.131   5
@@ -463,6 +567,18 @@ test_0.4_10      invariant_measure      energy_kurtosis          2.276    2.984 
 test_0.4_10      invariant_measure      energy_mean              1.077    0.058    0.054   5
 test_0.4_10      invariant_measure      energy_skew              0.432    0.402    0.931   5
 test_0.4_10      invariant_measure      energy_std               0.547    0.326    0.597   5
+test_0.4_10      local_contraction      contraction_rate_mean    22.035    0.344    0.016   5
+test_0.4_10      local_contraction      contraction_rate_p05    38.543    0.920    0.024   5
+test_0.4_10      local_contraction      contraction_rate_p50    21.725    0.565    0.026   5
+test_0.4_10      local_contraction      contraction_rate_p95     5.784    0.466    0.081   5
+test_0.4_10      local_contraction      contraction_rate_std   378.437   18.138    0.048   5
+test_0.4_10      local_contraction      contraction_ratio_std   378.437   18.138    0.048   5
+test_0.4_10      local_contraction      corr_contraction_gt_vs_emu    -0.312    0.083    0.265   5
+test_0.4_10      local_contraction      corr_expansion_gt_vs_emu     0.940    0.013    0.013   5
+test_0.4_10      local_contraction      divergence_error      2629.476   42.978    0.016   5
+test_0.4_10      local_contraction      expansion_rate_mean      0.867    0.066    0.076   5
+test_0.4_10      local_contraction      expansion_rate_std       1.094    0.029    0.026   5
+test_0.4_10      local_contraction      true_divergence          1.000    0.000    0.000   5
 test_0.4_10      lyapunov_spectrum      lambda_1                 0.034    0.248    7.368   5
 test_0.4_10      lyapunov_spectrum      lambda_2               -16.765   26.994    1.610   5
 test_0.4_10      lyapunov_spectrum      lambda_3                20.391    1.829    0.090   5
@@ -471,6 +587,38 @@ test_0.4_10      lyapunov_spectrum      trace_invariant         22.132    1.955 
 test_0.4_10      symbolic_dynamics      flip_rate                0.357    0.625    1.750   5
 test_0.4_10      symbolic_dynamics      mean_dwell              19.724   10.983    0.557   5
 
-wrote runs_replicated/summary.json and summary_table.txt
+=== resolvability: 137 of 198 pairwise comparisons exceed the combined standard error ===
+point A        point B        diagnostic             metric                       A         B      diff        SE  verdict
+--------------------------------------------------------------------------------------------------------------------------
+test_0.05_10   test_0.4_10    local_contraction      divergence_error       246.343  2629.476  2383.133    33.664  RESOLVABLE
+test_0.1_20    test_0.4_10    local_contraction      divergence_error       459.561  2629.476  2169.916    40.533  RESOLVABLE
+test_0.1_10    test_0.4_10    local_contraction      divergence_error       551.397  2629.476  2078.080    51.870  RESOLVABLE
+test_0.05_10   test_0.4_10    local_contraction      contraction_rate_std    61.957   378.437   316.480    12.734  RESOLVABLE
+test_0.05_10   test_0.4_10    local_contraction      contraction_ratio_std    61.957   378.437   316.480    12.734  RESOLVABLE
+test_0.05_10   test_0.1_10    local_contraction      divergence_error       246.343   551.397   305.053    47.093  RESOLVABLE
+test_0.1_20    test_0.4_10    local_contraction      contraction_rate_std   113.258   378.437   265.179    14.284  RESOLVABLE
+test_0.1_20    test_0.4_10    local_contraction      contraction_ratio_std   113.258   378.437   265.179    14.284  RESOLVABLE
+test_0.1_10    test_0.4_10    local_contraction      contraction_rate_std   147.309   378.437   231.128    22.684  RESOLVABLE
+test_0.1_10    test_0.4_10    local_contraction      contraction_ratio_std   147.309   378.437   231.128    22.684  RESOLVABLE
+test_0.05_10   test_0.1_20    local_contraction      divergence_error       246.343   459.561   213.217    35.755  RESOLVABLE
+test_0.1_10    test_0.1_20    local_contraction      divergence_error       551.397   459.561    91.836    53.962  RESOLVABLE
+test_0.05_10   test_0.1_10    local_contraction      contraction_rate_std    61.957   147.309    85.352    19.195  RESOLVABLE
+test_0.05_10   test_0.1_10    local_contraction      contraction_ratio_std    61.957   147.309    85.352    19.195  RESOLVABLE
+test_0.05_10   test_0.1_20    local_contraction      contraction_rate_std    61.957   113.258    51.301    10.796  RESOLVABLE
+test_0.05_10   test_0.1_20    local_contraction      contraction_ratio_std    61.957   113.258    51.301    10.796  RESOLVABLE
+test_0.1_10    test_0.1_20    local_contraction      contraction_ratio_std   147.309   113.258    34.051    20.745  RESOLVABLE
+test_0.1_10    test_0.1_20    local_contraction      contraction_rate_std   147.309   113.258    34.051    20.745  RESOLVABLE
+test_0.05_10   test_0.4_10    local_contraction      contraction_rate_p05     6.417    38.543    32.126     0.777  RESOLVABLE
+test_0.1_20    test_0.4_10    local_contraction      contraction_rate_p05    11.108    38.543    27.435     0.973  RESOLVABLE
+test_0.1_10    test_0.4_10    local_contraction      contraction_rate_p05    13.826    38.543    24.717     1.749  RESOLVABLE
+test_0.05_10   test_0.4_10    local_contraction      contraction_rate_p50     2.189    21.725    19.536     0.316  RESOLVABLE
+test_0.05_10   test_0.4_10    lyapunov_spectrum      sum_lambda               2.824    22.132    19.308     1.029  RESOLVABLE
+test_0.05_10   test_0.4_10    lyapunov_spectrum      trace_invariant          2.824    22.132    19.308     1.029  RESOLVABLE
+test_0.05_10   test_0.4_10    local_contraction      contraction_rate_mean     2.936    22.035    19.098     0.268  RESOLVABLE
+... 173 more comparisons
 
-wrote runs_replicated/
+wrote runs_new/summary.json, summary_table.txt, resolvable.json, resolvable_table.txt
+
+pruned 128 duplicate figures (replicate>0); results.json preserved
+
+wrote runs_new/

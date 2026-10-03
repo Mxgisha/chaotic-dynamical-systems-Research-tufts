@@ -125,7 +125,7 @@ spread.
 `python scripts/run_sweep.py --config configs/sweep.json --backend numpy --out runs`
 (50 epochs, 18 900 training windows, 5000-step evaluation, one core). Every number is
 emulator/ground-truth, **mean ± std over 5 seed replicates**, from
-[`runs/summary.json`](runs/summary.json). 140/140 figures verified non-blank.
+[`runs/summary.json`](runs/summary.json). 32/32 figures verified non-blank.
 
 Replicates vary both the sampled initial conditions (`point_key(..., replicate)`) and the model
 initialisation, so the spread below is genuine run-to-run variation, not just weight noise.
@@ -140,18 +140,47 @@ initialisation, so the spread below is genuine run-to-run variation, not just we
 | `dmd_spectrum` spectrum_corr | 0.98 ± 0.01 | 0.98 ± 0.01 | 0.94 ± 0.01 | 0.83 ± 0.18 |
 | `symbolic_dynamics` flip_rate | 0.96 ± 0.38 | 1.13 ± 0.45 | 0.76 ± 0.39 | 0.36 ± 0.63 |
 | `correlation_dimension` d2 | 0.84 ± 0.11 | 0.92 ± 0.16 | 0.74 ± 0.35 | 0.49 ± 0.22 |
+| **`local_contraction` ratio** | **2.94 ± 0.26** | **5.24 ± 0.56** | **4.84 ± 0.40** | **22.0 ± 0.34** |
+| `local_contraction` p95 ratio | 1.16 ± 0.09 | 1.42 ± 0.18 | 1.51 ± 0.04 | 5.78 ± 0.47 |
+| `local_contraction` p05 ratio | 6.42 ± 0.82 | 13.8 ± 3.0 | 11.1 ± 1.3 | 38.5 ± 0.9 |
+
+### Where the volume error lives
+
+Lorenz-63 has **constant divergence**, so the true flow map contracts volume by exactly
+`-(sigma+1+beta)·dt` at *every* state. `local_contraction` measures `ln|det Dφ|` per state for both
+maps at the same states, which makes any state-dependence in the emulator pure model error.
+
+Three things follow, and they are the most useful results in the sweep:
+
+1. **The over-contraction is a tail phenomenon, not a uniform offset.** At noise 0.05 the bulk of
+   the distribution contracts only 1.16× too fast, while the worst 5% contracts **6.4×** too fast.
+   A metric reporting only the mean (2.94×) would mislead anyone trying to fix it: the target is
+   the tail, not the average.
+2. **The error is state-dependent, and the true system's is not.** The emulator's own contraction
+   rate has a spread of 62 (rising to 378) *per unit time*, against a true spread of ~0.4 — which
+   is the RK4 discretisation floor, not physics. The emulator invents state-dependence the system
+   does not have. Stratified by position, the excess is ~−8 near the saddle (`|x|<2`) and ~−40 in
+   the mid-lobes (`6≤|x|<10`), and falls monotonically with altitude `z`.
+3. **The emulator's local expansion does not reproduce the truth's.** The correlation between the
+   true and emulated leading expansion rate is only **0.52** at noise 0.05 — rising to 0.94 at 0.4,
+   where the model has collapsed toward a compressible fixed point. It gets the local stretching
+   structure substantially wrong even where the attractor's shape statistics pass.
+
+This is also the **strongest discriminator** in the suite: with it, 137 of 198 pairwise point
+comparisons are resolvable, against 78 of 126 without it, and five of the six largest differences
+in the whole study come from it.
 
 ### Which differences are real?
 
-The sweep also writes [`resolvable_table.txt`](runs/resolvable_table.txt): all 126
+The sweep also writes [`resolvable_table.txt`](runs/resolvable_table.txt): all 198
 pairwise point comparisons, each flagged when the difference exceeds the sum of the two standard
-errors. **78 of 126 are resolvable.** Ranking metrics by how many point-pairs they separate:
+errors. **137 of 198 are resolvable.** Ranking metrics by how many point-pairs they separate:
 
 | metric | point-pairs resolved |
 |---|---|
-| **λ₃** | **6 / 6** |
+| **λ₃**, `divergence_error`, `contraction_rate_std`, `contraction_rate_p05` | **6 / 6** |
 | Σλ, `trace_invariant` | 5 / 6 |
-| λ₂, `t_sat`, `d2_hi`, `spectrum_corr` | 5 / 6 |
+| λ₂, `t_sat`, `d2_hi`, `spectrum_corr`, `contraction_rate_mean` | 5 / 6 |
 | `growth_rate`, `t_double`, λ₁ | 4 / 6 |
 | `energy_mean`, `mean_dwell`, `d2`, `flip_rate` | 2–3 / 6 |
 
