@@ -53,6 +53,7 @@ implementations drifting apart the way the three copies of the old code did.
 | [`lorenz63/losses.py`](lorenz63/losses.py) | MSE and a differentiable distributional (L1) term |
 | [`lorenz63/train.py`](lorenz63/train.py) | One training loop, one stepper contract, Adam |
 | [`lorenz63/controls.py`](lorenz63/controls.py) | GT-vs-GT and identity baselines |
+| [`lorenz63/aggregate.py`](lorenz63/aggregate.py) | Replicate mean ± spread and resolvability tests |
 | [`lorenz63/diagnostics/`](lorenz63/diagnostics) | Pure measurement functions — **no plotting** |
 | [`lorenz63/report.py`](lorenz63/report.py) | The single figure contract, `results.json` |
 | [`scripts/run_sweep.py`](scripts/run_sweep.py) | Train → evaluate → emit, end to end |
@@ -112,55 +113,90 @@ test_0.05_10  invariant_measure     energy_mean     1.114
 test_0.05_10  dmd_spectrum          spectrum_corr   0.764
 ```
 
-The full sweep above shows the same signature in a properly trained model: **shape statistics pass
-while time-parameterisation statistics fail.** Cherry-picking the passing metrics is exactly the
-failure mode this suite exists to prevent, which is why the controls are stored alongside every
-number and `ratios()` refuses to report a ratio when the ground-truth value is numerically zero.
+The full sweep above shows the same signature in properly trained models, with error bars:
+**shape statistics pass while time-parameterisation statistics fail.** Cherry-picking the passing
+metrics is exactly the failure mode this suite exists to prevent, which is why the controls are
+stored alongside every number, `ratios()` refuses to report a ratio when the ground-truth value is
+numerically zero, and `resolvable_table.txt` marks which differences survive the seed-to-seed
+spread.
 
-## Full sweep results
+## Full sweep results (5 seed replicates per point)
 
 `python scripts/run_sweep.py --config configs/sweep.json --backend numpy --out runs`
-(50 epochs, 18 900 training windows, 5000-step evaluation, one core). Every number below is
-emulator/ground-truth from `runs/*/results.json`; 28/28 figures verified non-blank.
+(50 epochs, 18 900 training windows, 5000-step evaluation, one core). Every number is
+emulator/ground-truth, **mean ± std over 5 seed replicates**, from
+[`runs/summary.json`](runs/summary.json). 140/140 figures verified non-blank.
 
-Absolute Lyapunov spectra — the ground truth is stable to three decimals across all four noise
-levels, and `sum` matches the divergence `-(sigma + 1 + beta) = -13.667` every time:
+Replicates vary both the sampled initial conditions (`point_key(..., replicate)`) and the model
+initialisation, so the spread below is genuine run-to-run variation, not just weight noise.
 
-| sweep point | ground truth λ | emulator λ | λ₁ ratio |
-|---|---|---|---|
-| `0.05 / 10` | `0.997, 0.091, -14.868` | `0.835, -0.046, -39.727` | 0.84 |
-| `0.1 / 10` | `1.022, 0.097, -14.898` | `0.785, -0.009, -73.856` | 0.77 |
-| `0.1 / 20` | `1.002, 0.088, -14.865` | `0.804, -0.014, -67.512` | 0.80 |
-| `0.4 / 10` | `0.990, 0.007, -14.771` | `-0.006, -0.514, -344.784` | **-0.01** |
-
-Selected ratios across the sweep:
-
-| diagnostic / metric | 0.05 | 0.1 | 0.1 (h=20) | 0.4 |
+| metric | 0.05/10 | 0.1/10 | 0.1/20 | 0.4/10 |
 |---|---|---|---|---|
-| `correlation_dimension` d2 | 1.16 | 1.11 | 1.06 | **0.42** |
-| `error_growth` growth_rate | 0.92 | 2.05 | 0.69 | **0.06** |
-| `symbolic_dynamics` flip_rate | 1.10 | 1.10 | 1.10 | **2.14** |
-| `invariant_measure` energy_mean | 1.01 | 0.99 | 0.99 | 0.93 |
-| `dmd_spectrum` spectrum_corr | 0.98 | 0.95 | 0.94 | 0.98 |
-| `lyapunov_spectrum` λ₁ | 0.84 | 0.77 | 0.80 | -0.01 |
+| λ₁ | 0.68 ± 0.25 | 0.68 ± 0.25 | −0.15 ± 1.54 | 0.03 ± 0.25 |
+| **λ₃** | **2.66 ± 0.34** | **5.14 ± 0.64** | **4.48 ± 0.59** | **20.39 ± 1.83** |
+| Σλ | 2.82 ± 0.35 | 5.50 ± 0.70 | 4.99 ± 0.83 | 22.13 ± 1.96 |
+| `error_growth` rate | 1.45 ± 0.27 | 0.41 ± 0.14 | 2.48 ± 2.07 | 0.67 ± 1.09 |
+| `invariant_measure` energy_mean | 1.01 ± 0.04 | 0.99 ± 0.04 | 0.98 ± 0.16 | 1.08 ± 0.06 |
+| `dmd_spectrum` spectrum_corr | 0.98 ± 0.01 | 0.98 ± 0.01 | 0.94 ± 0.01 | 0.83 ± 0.18 |
+| `symbolic_dynamics` flip_rate | 0.96 ± 0.38 | 1.13 ± 0.45 | 0.76 ± 0.39 | 0.36 ± 0.63 |
+| `correlation_dimension` d2 | 0.84 ± 0.11 | 0.92 ± 0.16 | 0.74 ± 0.35 | 0.49 ± 0.22 |
 
-**What this says.** Training MSE falls monotonically and the emulator tracks the *shape* of the
-attractor well at every noise level (`energy_mean` within 7%, DMD spectrum correlation ≥ 0.94).
-What it does not reproduce is the *contraction*: λ₃ comes out 2.7–5x too negative at low noise
-and 23x too negative at noise 0.4, so the emulated attractor is far more dissipative than the real
-one even when λ₁ is within 20%. At noise 0.4 the emulator collapses to a fixed point (λ₁ ≈ 0,
-D2 ratio 0.42, error-growth rate 6% of truth) while its one-step MSE is still only 0.112 — the
-clearest demonstration in the sweep that **low one-step MSE does not imply correct dynamics**.
-Note also that the error-growth rate is an independent estimator built from twin trajectories; it
-agrees with the QR spectrum to within 8% on the well-behaved points, which is a useful cross-check
-of the Lyapunov code.
+### Which differences are real?
+
+The sweep also writes [`resolvable_table.txt`](runs/resolvable_table.txt): all 126
+pairwise point comparisons, each flagged when the difference exceeds the sum of the two standard
+errors. **78 of 126 are resolvable.** Ranking metrics by how many point-pairs they separate:
+
+| metric | point-pairs resolved |
+|---|---|
+| **λ₃** | **6 / 6** |
+| Σλ, `trace_invariant` | 5 / 6 |
+| λ₂, `t_sat`, `d2_hi`, `spectrum_corr` | 5 / 6 |
+| `growth_rate`, `t_double`, λ₁ | 4 / 6 |
+| `energy_mean`, `mean_dwell`, `d2`, `flip_rate` | 2–3 / 6 |
+
+**This substantially revises what a single run suggests.** With error bars attached:
+
+* **The contraction is the finding.** λ₃ separates *every* pair of sweep points, and Σλ separates
+  five of six. The emulated attractor is 2.7–20x too dissipative, consistently and beyond
+  seed noise. This is the one unambiguous, reproducible failure mode.
+* **The "shape" metrics are stable but insensitive.** `energy_mean` sits within 8% of truth at
+  every noise level, and `spectrum_corr` stays ≥ 0.83. But they resolve only 2–3 of 6 pairs, so
+  they are poor discriminators — they say "the attractor is broadly right", not "this emulator
+  is better than that one".
+* **λ₁ and the lobe-flip rate are dominated by seed noise.** The earlier single-run claim that
+  λ₁ was off by 13x was selecting one replicate: the 5-seed mean is **0.68 ± 0.25**, which is
+  consistent with recovering λ₁ to within ~30%. `flip_rate` (0.96 ± 0.38 at the best point)
+  likewise cannot support a "3x wrong" claim. Those specific numbers from the previous
+  single-run analysis are **retracted**.
+* **Noise 0.4 is a genuine collapse, not noise.** 18 of 21 metrics resolve against 0.1/10,
+  including `mean_dwell` at 19.7 ± 11.0 against 1.5 ± 1.5 — the emulator stops switching lobes.
+  Its one-step MSE is still only 0.112, so the headline conclusion stands: **low one-step MSE
+  does not imply correct dynamics.**
+* **Horizon 20 vs horizon 10 at the same noise is barely distinguishable** (8 of 21 metrics),
+  so horizon is not a strong lever over this range; noise is.
+
+`error_growth` is an independent estimator built from twin trajectories, and it agrees with the
+QR spectrum on the well-behaved points — a useful cross-check of the Lyapunov code rather than a
+second opinion from the same numbers.
 
 ## What the sweep produces
 
-Each sweep point writes a directory `runs/test_<noise>_<horizon>/` containing
-`model.npz`, `metadata.json`, `history.json`, `results.json`, and one PNG per diagnostic:
-`lyapunov_spectrum`, `invariant_measure`, `correlation_dimension`, `symbolic_dynamics`,
-`dmd_spectrum`, `error_growth`, `vector_field_slice`.
+Each sweep point writes `runs/test_<noise>_<horizon>/replicate<N>/` — one directory **per seed
+replicate**, always, so the on-disk layout does not change shape between a one-replicate run and a
+full sweep. Each replicate directory contains `model.npz`, `metadata.json`, `history.json`,
+`results.json`, and one PNG per diagnostic: `lyapunov_spectrum`, `invariant_measure`,
+`correlation_dimension`, `symbolic_dynamics`, `dmd_spectrum`, `error_growth`,
+`vector_field_slice`.
+
+At the top level:
+
+| file | contents |
+|---|---|
+| `results_all.json`, `results_table.txt` | first replicate of every point (single-run view) |
+| `summary.json`, `summary_table.txt` | **mean ± std over replicates**, per metric |
+| `resolvable.json`, `resolvable_table.txt` | all pairwise point comparisons with a verdict |
+| `sweep.log` | full stdout of the run |
 
 `emit()` **saves before showing** and then re-decodes every written PNG to assert it is not blank
 (see `is_blank_png`). That check exists because 28 of the 32 PNGs previously committed to
@@ -172,8 +208,21 @@ Each sweep point writes a directory `runs/test_<noise>_<horizon>/` containing
 The pointwise trajectory error saturates and is not a skill measure: with `lambda_1 ~ 0.9` the
 error grows e-folded ~65x over 50 time units, so after roughly one Lyapunov time the two
 trajectories are uncorrelated and the error simply fluctuates at the size of the attractor. The
-informative diagnostics are the structural ones — the Lyapunov ratios, the lobe-flip ratio, and
-the return-map correlation.
+informative diagnostics are the structural ones, and among those the **contraction** (λ₃, Σλ) is
+the only one that separates every pair of sweep points beyond seed noise. The lobe-flip rate and
+λ₁ look dramatic in a single run but are dominated by run-to-run variation at 5 replicates.
 
-Run `python scripts/run_sweep.py --smoke --out runs` and read `runs/*/results.json` for the
-current numbers, which include an `ratios` block giving `emu / gt` for every metric.
+Run `python scripts/run_sweep.py --smoke --replicates 2 --out runs` for a quick check, or the full
+command at the top for the committed numbers.
+
+## Reproducing the replicate study
+
+```bash
+python scripts/run_sweep.py --config configs/sweep.json --backend numpy --out runs
+# or override the config's "replicates": 5
+python scripts/run_sweep.py --replicates 5 --out runs
+```
+
+The run is deterministic: each replicate derives its data from
+`point_key(root_seed=67, noise_scale, horizon, replicate)` and its weights from
+`model.seed + replicate`. Re-running reproduces the committed numbers exactly.

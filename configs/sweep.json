@@ -1,6 +1,7 @@
 {
   "root_seed": 67,
   "dt": 0.01,
+  "replicates": 5,
   "model": {
     "width": 128,
     "depth": 3,
@@ -45,6 +46,7 @@
   },
   "smoke": {
     "note": "CPU config used by the test suite and for verification.  Sized so the test trajectory is past its transient (burn_in >= 500) and the emulator actually fits, while staying a few minutes on one core.",
+    "replicates": 2,
     "train_steps": 2500,
     "eval_steps": 2000,
     "burn_in": 500,

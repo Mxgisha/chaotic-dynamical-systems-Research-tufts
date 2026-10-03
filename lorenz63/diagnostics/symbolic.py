@@ -23,10 +23,15 @@ def lobe_transitions(traj, threshold=0.0):
     crossings = np.abs(np.diff(lobe)) > 0
     n_flips = int(np.sum(crossings))
     n = lobe.size
+    # NB: a zero-flip trajectory is a real outcome (an emulator stuck in one
+    # lobe), not a divide-by-zero to paper over with an epsilon.  Adding 1e-12
+    # produced a "mean dwell" of 6.2e12, which then poisoned every downstream
+    # mean.  Report inf explicitly; aggregation skips non-finite values.
+    mean_dwell = float(n / n_flips) if n_flips > 0 else float("inf")
     return {
         "n_flips": n_flips,
         "flip_rate": float(n_flips / max(n - 1, 1)),
-        "mean_dwell": float(n / (n_flips + 1e-12)),
+        "mean_dwell": mean_dwell,
         "lobe_balance": float(np.mean(lobe)),
         "cum_flips": np.cumsum(np.concatenate([[0], crossings])),
     }

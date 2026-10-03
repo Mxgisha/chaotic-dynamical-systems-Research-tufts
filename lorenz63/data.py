@@ -45,17 +45,32 @@ class Dataset:
         return int(self.x_train.shape[0])
 
 
-def point_key(root_key, *, noise_scale: float, horizon: int):
-    """Derive an independent key for one sweep point.
+def _point_salt(noise_scale: float, horizon: int, replicate: int) -> int:
+    """A stable 32-bit salt for ``(noise_scale, horizon, replicate)``.
 
-    Deterministic in ``(root_key, noise_scale, horizon)`` so a run is
+    ``jax.random.fold_in`` requires a uint32 data argument, and the naive
+    ``int(noise_scale * 1e6) * 1000 + ...`` encoding overflows it once a
+    replicate index is folded in.  A BLAKE2b digest is stable across processes
+    (unlike ``hash``, which is salted) and always fits.
+    """
+    import hashlib
+
+    payload = f"{abs(float(noise_scale)):.9g}|{int(horizon)}|{int(replicate)}".encode()
+    digest = hashlib.blake2b(payload, digest_size=4).digest()
+    return int.from_bytes(digest, "big") & 0xFFFFFFFF
+
+
+def point_key(root_key, *, noise_scale: float, horizon: int, replicate: int = 0):
+    """Derive an independent key for one sweep point (and replicate).
+
+    Deterministic in ``(root_key, noise_scale, horizon, replicate)`` so a run is
     reproducible, but distinct across sweep points so the noise axis actually
-    varies the data.  Fixes D7.
+    varies the data, and distinct across replicates so seed-to-seed spread can be
+    quantified.  Fixes D7.
     """
     import jax.random as jrandom  # only for keys; works under either backend
 
-    salt = int(abs(noise_scale) * 1e6) * 1000 + int(horizon)
-    return jrandom.fold_in(root_key, salt)
+    return jrandom.fold_in(root_key, _point_salt(noise_scale, horizon, replicate))
 
 
 def training_dataset(trajectory, horizon: int, stride: int = 1):

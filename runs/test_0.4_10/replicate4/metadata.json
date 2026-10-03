@@ -1,0 +1,29 @@
+{
+  "noise_scale": 0.4,
+  "horizon": 10,
+  "dt": 0.01,
+  "sampler": "manifold",
+  "n_train": 6,
+  "n_test": 3,
+  "n_samples": 18900,
+  "n_short": 100,
+  "short_steps": 200,
+  "eval_steps": 5000,
+  "burn_in": 1000,
+  "root_seed": 67,
+  "replicate": 4,
+  "model": {
+    "width": 128,
+    "depth": 3,
+    "seed": 67
+  },
+  "model_seed": 71,
+  "train_seed": 71,
+  "backend": "numpy",
+  "test_ic": [
+    -10.681386676940036,
+    13.758029280523882,
+    14.904526571128047
+  ],
+  "n_params": 33923
+}

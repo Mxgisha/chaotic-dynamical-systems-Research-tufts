@@ -1,0 +1,366 @@
+[
+  {
+    "name": "correlation_dimension",
+    "gt": {
+      "d2": 2.3052692563506176,
+      "d2_lo": 2.20153193820989,
+      "d2_hi": 2.411919470417529,
+      "n_points": 600.0
+    },
+    "emu": {
+      "d2": 1.968605556915222,
+      "d2_lo": 1.8090961918569393,
+      "d2_hi": 2.1400511743387547,
+      "n_points": 600.0,
+      "d2_ratio": 0.853959055538547
+    },
+    "control_gt_gt": {
+      "d2": 2.3052692563506176,
+      "d2_lo": 2.187092701088899,
+      "d2_hi": 2.409518495263894,
+      "n_points": 600.0
+    },
+    "control_identity": null,
+    "ratios": {
+      "d2": 0.853959055538547,
+      "d2_lo": 0.8217442411160075,
+      "d2_hi": 0.8872813543680581
+    },
+    "meta": {
+      "noise_scale": 0.05,
+      "horizon": 10,
+      "replicate": 1,
+      "n_steps": 5000,
+      "dt": 0.01,
+      "backend": "numpy",
+      "model_backend": "numpy",
+      "final_train_loss": {
+        "epoch": 49,
+        "lr": 0.0001,
+        "total": 0.02941824026121713,
+        "mse": 0.002786408744808735,
+        "l1": 0.26631831516408394,
+        "ftle": 0.0
+      }
+    }
+  },
+  {
+    "name": "dmd_spectrum",
+    "gt": {
+      "n_modes": 24.0,
+      "mag_top": 0.9936323989756006,
+      "mag_mean": 0.9860132936560708,
+      "spectral_gap": 0.0,
+      "spectrum_corr": 1.0,
+      "mag_top_ratio": 1.0
+    },
+    "emu": {
+      "n_modes": 30.0,
+      "mag_top": 0.9955366721182872,
+      "mag_mean": 0.8334811034308447,
+      "spectral_gap": 0.027707649617921493,
+      "spectrum_corr": 0.9650105123359869,
+      "mag_top_ratio": 1.0019164765004138
+    },
+    "control_gt_gt": {
+      "n_modes": 24.0,
+      "mag_top": 0.9936323989756006,
+      "mag_mean": 0.9860132936560708,
+      "spectral_gap": 0.0,
+      "spectrum_corr": 1.0,
+      "mag_top_ratio": 1.0
+    },
+    "control_identity": null,
+    "ratios": {
+      "mag_top": 1.0019164765004138,
+      "mag_mean": 0.8453041239843258,
+      "spectrum_corr": 0.9650105123359869,
+      "mag_top_ratio": 1.0019164765004138
+    },
+    "meta": {
+      "noise_scale": 0.05,
+      "horizon": 10,
+      "replicate": 1,
+      "n_steps": 5000,
+      "dt": 0.01,
+      "backend": "numpy",
+      "model_backend": "numpy",
+      "final_train_loss": {
+        "epoch": 49,
+        "lr": 0.0001,
+        "total": 0.02941824026121713,
+        "mse": 0.002786408744808735,
+        "l1": 0.26631831516408394,
+        "ftle": 0.0
+      }
+    }
+  },
+  {
+    "name": "error_growth",
+    "gt": {
+      "growth_rate": 0.815156143853577,
+      "t_double": 0.8503244265364358,
+      "t_sat": 2000.0,
+      "n_scales_used": 5.0,
+      "growth_rate_ratio": 1.0
+    },
+    "emu": {
+      "growth_rate": 1.168715407765963,
+      "t_double": 0.5930846602638006,
+      "t_sat": 665.0,
+      "n_scales_used": 5.0,
+      "growth_rate_ratio": 1.4337319501034076,
+      "identity_n_unique_endpoints": 1.0
+    },
+    "control_gt_gt": {
+      "growth_rate": 0.815156143853577,
+      "t_double": 0.8503244265364358,
+      "t_sat": 2000.0,
+      "n_scales_used": 5.0,
+      "growth_rate_ratio": 1.0
+    },
+    "control_identity": null,
+    "ratios": {
+      "growth_rate": 1.4337319501034076,
+      "t_double": 0.6974804459982044,
+      "t_sat": 0.3325
+    },
+    "meta": {
+      "noise_scale": 0.05,
+      "horizon": 10,
+      "replicate": 1,
+      "n_steps": 5000,
+      "dt": 0.01,
+      "backend": "numpy",
+      "model_backend": "numpy",
+      "final_train_loss": {
+        "epoch": 49,
+        "lr": 0.0001,
+        "total": 0.02941824026121713,
+        "mse": 0.002786408744808735,
+        "l1": 0.26631831516408394,
+        "ftle": 0.0
+      }
+    }
+  },
+  {
+    "name": "invariant_measure",
+    "gt": {
+      "l1_x": 0.0,
+      "w1_x": 0.0,
+      "l1_y": 0.0,
+      "w1_y": 0.0,
+      "l1_z": 0.0,
+      "w1_z": 0.0,
+      "l1_mean": 0.0,
+      "w1_mean": 0.0,
+      "energy_mean": 774.5341659369356,
+      "energy_std": 507.92301960237523,
+      "energy_skew": 0.7364282919382193,
+      "energy_kurtosis": 2.6395495342705706
+    },
+    "emu": {
+      "l1_x": 0.33720000000000006,
+      "w1_x": 1.113947521710939,
+      "l1_y": 0.29039999999999994,
+      "w1_y": 1.1318891511454028,
+      "l1_z": 0.26879999999999965,
+      "w1_z": 0.9329709656867393,
+      "l1_mean": 0.2987999999999999,
+      "w1_mean": 1.0596025461810272,
+      "energy_mean": 769.3732062864684,
+      "energy_std": 545.0667424743907,
+      "energy_skew": 0.7470757254157142,
+      "energy_kurtosis": 2.330626505265786,
+      "l1_mean_vs_gtgt_control": 0.17053333333333334,
+      "l1_excess_over_control": 0.12826666666666656,
+      "l1_mean_vs_identity": 1.982666666666668
+    },
+    "control_gt_gt": {
+      "l1_x": 0.0,
+      "w1_x": 0.0,
+      "l1_y": 0.0,
+      "w1_y": 0.0,
+      "l1_z": 0.0,
+      "w1_z": 0.0,
+      "l1_mean": 0.0,
+      "w1_mean": 0.0,
+      "energy_mean": 774.5341659369356,
+      "energy_std": 507.92301960237523,
+      "energy_skew": 0.7364282919382193,
+      "energy_kurtosis": 2.6395495342705706
+    },
+    "control_identity": null,
+    "ratios": {
+      "energy_mean": 0.993336692069324,
+      "energy_std": 1.0731286463470255,
+      "energy_skew": 1.0144582080754552,
+      "energy_kurtosis": 0.8829637311238585
+    },
+    "meta": {
+      "noise_scale": 0.05,
+      "horizon": 10,
+      "replicate": 1,
+      "n_steps": 5000,
+      "dt": 0.01,
+      "backend": "numpy",
+      "model_backend": "numpy",
+      "final_train_loss": {
+        "epoch": 49,
+        "lr": 0.0001,
+        "total": 0.02941824026121713,
+        "mse": 0.002786408744808735,
+        "l1": 0.26631831516408394,
+        "ftle": 0.0
+      }
+    }
+  },
+  {
+    "name": "lyapunov_spectrum",
+    "gt": {
+      "lambda_1": 1.0177318975576117,
+      "lambda_2": 0.09486891378269414,
+      "lambda_3": -14.887800547184685,
+      "sum_lambda": -13.77519973584438,
+      "trace_invariant": -13.775199735844382,
+      "convergence_slope_lambda_1": -1.1000303995866215e-05,
+      "n_steps": 5000.0,
+      "lambda_1_ratio": 1.0
+    },
+    "emu": {
+      "lambda_1": 0.7697827189821713,
+      "lambda_2": -0.038622423698165015,
+      "lambda_3": -38.50567736403109,
+      "sum_lambda": -37.77451706874708,
+      "trace_invariant": -37.77451706874717,
+      "convergence_slope_lambda_1": -4.011956127772324e-06,
+      "n_steps": 5000.0,
+      "lambda_1_ratio": 0.7563708289280532
+    },
+    "control_gt_gt": {
+      "lambda_1": 1.0177318975576117,
+      "lambda_2": 0.09486891378269414,
+      "lambda_3": -14.887800547184685,
+      "sum_lambda": -13.77519973584438,
+      "trace_invariant": -13.775199735844382,
+      "convergence_slope_lambda_1": -1.1000303995866215e-05,
+      "n_steps": 5000.0,
+      "lambda_1_ratio": 1.0
+    },
+    "control_identity": null,
+    "ratios": {
+      "lambda_1": 0.7563708289280532,
+      "lambda_2": -0.40711358608609327,
+      "lambda_3": 2.5863912699524034,
+      "sum_lambda": 2.7422119310875903,
+      "trace_invariant": 2.7422119310875965
+    },
+    "meta": {
+      "noise_scale": 0.05,
+      "horizon": 10,
+      "replicate": 1,
+      "n_steps": 5000,
+      "dt": 0.01,
+      "backend": "numpy",
+      "model_backend": "numpy",
+      "final_train_loss": {
+        "epoch": 49,
+        "lr": 0.0001,
+        "total": 0.02941824026121713,
+        "mse": 0.002786408744808735,
+        "l1": 0.26631831516408394,
+        "ftle": 0.0
+      }
+    }
+  },
+  {
+    "name": "symbolic_dynamics",
+    "gt": {
+      "n_flips": 28.0,
+      "flip_rate": 0.005601120224044809,
+      "mean_dwell": 178.57142857142858,
+      "return_map_r": 0.16504604703896825,
+      "n_maxima": 67.0,
+      "flip_ratio": 1.0
+    },
+    "emu": {
+      "n_flips": 32.0,
+      "flip_rate": 0.00640128025605121,
+      "mean_dwell": 156.25,
+      "return_map_r": 0.019941616493343972,
+      "n_maxima": 66.0,
+      "flip_ratio": 1.1428571428571428,
+      "flip_ratio_vs_gtgt_control": 0.8571428571428571
+    },
+    "control_gt_gt": {
+      "n_flips": 28.0,
+      "flip_rate": 0.005601120224044809,
+      "mean_dwell": 178.57142857142858,
+      "return_map_r": 0.16504604703896825,
+      "n_maxima": 67.0,
+      "flip_ratio": 1.0
+    },
+    "control_identity": null,
+    "ratios": {
+      "flip_rate": 1.1428571428571428,
+      "mean_dwell": 0.8749999999999999
+    },
+    "meta": {
+      "noise_scale": 0.05,
+      "horizon": 10,
+      "replicate": 1,
+      "n_steps": 5000,
+      "dt": 0.01,
+      "backend": "numpy",
+      "model_backend": "numpy",
+      "final_train_loss": {
+        "epoch": 49,
+        "lr": 0.0001,
+        "total": 0.02941824026121713,
+        "mse": 0.002786408744808735,
+        "l1": 0.26631831516408394,
+        "ftle": 0.0
+      }
+    }
+  },
+  {
+    "name": "vector_field_slice",
+    "gt": {
+      "mean_error": 0.0,
+      "max_error": 0.0,
+      "mean_relative_error": 0.0,
+      "fixed_val": 23.614313088853983
+    },
+    "emu": {
+      "mean_error": 380.9151063807881,
+      "max_error": 1570.9330465663506,
+      "mean_relative_error": 1.3068748814563422,
+      "fixed_val": 23.614313088853983
+    },
+    "control_gt_gt": {
+      "mean_error": 0.0,
+      "max_error": 0.0,
+      "mean_relative_error": 0.0,
+      "fixed_val": 23.614313088853983
+    },
+    "control_identity": null,
+    "ratios": {},
+    "meta": {
+      "noise_scale": 0.05,
+      "horizon": 10,
+      "replicate": 1,
+      "n_steps": 5000,
+      "dt": 0.01,
+      "backend": "numpy",
+      "model_backend": "numpy",
+      "final_train_loss": {
+        "epoch": 49,
+        "lr": 0.0001,
+        "total": 0.02941824026121713,
+        "mse": 0.002786408744808735,
+        "l1": 0.26631831516408394,
+        "ftle": 0.0
+      }
+    }
+  }
+]
