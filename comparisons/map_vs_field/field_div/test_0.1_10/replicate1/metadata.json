@@ -1,0 +1,19 @@
+{
+  "arm": "field_div",
+  "backend": "field",
+  "replicate": 1,
+  "noise_scale": 0.1,
+  "horizon": 10,
+  "n_params": 33923,
+  "final_train_loss": {
+    "epoch": 49,
+    "lr": 0.0001,
+    "total": 0.010303503915867453,
+    "mse": 0.01016516113926714,
+    "l1": 0.0,
+    "ftle": 0.0,
+    "divergence_penalty": 0.00013834277660031299,
+    "field_scale": 16.788698915519888
+  },
+  "field_scale": 16.788698915519888
+}

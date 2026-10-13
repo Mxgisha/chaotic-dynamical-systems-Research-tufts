@@ -1,0 +1,8 @@
+{
+  "in_size": 3,
+  "out_size": 3,
+  "width": 128,
+  "depth": 3,
+  "rng_seed": 67,
+  "n_params": 33923
+}

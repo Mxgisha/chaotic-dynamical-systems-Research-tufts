@@ -28,12 +28,22 @@ class LossConfig:
     ftle_weight: float = 0.0  # spec default: off
     ftle_target: float | None = None  # must be set explicitly to enable
     n_bins: int = 30
+    #: weight on a penalty that drives the learned vector field's divergence
+    #: toward ``divergence_target``.  Measured at the training samples; used only
+    #: by the vector-field parameterisation.
+    divergence_weight: float = 0.0
+    divergence_target: float | None = None
 
     def __post_init__(self):
         if self.ftle_target is not None and self.ftle_weight == 0.0:
             raise ValueError(
                 "ftle_target was set but ftle_weight is 0; set ftle_weight > 0 "
                 "or leave ftle_target as None"
+            )
+        if self.divergence_target is not None and self.divergence_weight == 0.0:
+            raise ValueError(
+                "divergence_target was set but divergence_weight is 0; set "
+                "divergence_weight > 0 or leave divergence_target as None"
             )
 
 
@@ -178,6 +188,26 @@ def ftle_regularizer(model, x, target, dt, eps=1e-4):
     return (est - target) ** 2, est
 
 
+def divergence_penalty(field_fn, x, target, eps=1e-5):
+    """Mean-squared deviation of a vector field's divergence from ``target``.
+
+    ``field_fn`` maps a batch ``(n, d)`` to a field ``(n, d)``.  The divergence is
+    obtained by central differences of the *field*, which is exact enough here and
+    keeps this independent of any autodiff framework.
+
+    This is a physics-informed constraint, not a fitted parameter: Lorenz-63's
+    divergence is the known constant ``-(sigma + 1 + beta)``.
+    """
+    x = np.asarray(x, dtype=np.float64)
+    n, d = x.shape
+    div = np.zeros(n)
+    for i in range(d):
+        e = np.zeros(d)
+        e[i] = eps
+        div += (field_fn(x + e)[:, i] - field_fn(x - e)[:, i]) / (2 * eps)
+    return float(np.mean((div - target) ** 2))
+
+
 __all__ = [
     "LossConfig",
     "mse_loss",
@@ -185,4 +215,5 @@ __all__ = [
     "l1_distribution_distance",
     "soft_l1_distribution_distance",
     "ftle_regularizer",
+    "divergence_penalty",
 ]

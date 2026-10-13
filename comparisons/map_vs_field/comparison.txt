@@ -1,0 +1,33 @@
+metric                                       map               field           field_div      diff        SE  verdict
+contraction_rate_mean              2.485+/-0.256         1.390+/-0.549         0.992+/-0.000       1.493     0.181  RESOLVABLE
+contraction_rate_std              47.755+/-4.808        20.008+/-9.323         0.029+/-0.007      47.726     3.404  RESOLVABLE
+contraction_rate_p05               5.144+/-0.475         2.522+/-1.331         0.958+/-0.000       4.186     0.336  RESOLVABLE
+contraction_rate_p95               1.169+/-0.001         0.687+/-0.399         1.049+/-0.000       0.120     0.001  RESOLVABLE
+divergence_error                 189.093+/-32.479       69.563+/-50.438        0.032+/-0.008     189.061    22.972  RESOLVABLE
+expansion_rate_mean                1.440+/-0.116         1.382+/-0.282         1.211+/-0.145       0.229     0.185  RESOLVABLE
+corr_expansion_gt_vs_emu           0.317+/-0.102         0.516+/-0.374         0.932+/-0.050       0.615     0.107  RESOLVABLE
+corr_contraction_gt_vs_emu         0.136+/-0.087         0.339+/-0.298        -0.172+/-0.021       0.308     0.077  RESOLVABLE
+contraction_rate_mean              4.623+/-0.303         4.729+/-2.108         0.992+/-0.000       3.631     0.214  RESOLVABLE
+contraction_rate_std             118.201+/-12.099       61.692+/-13.683        0.076+/-0.025     118.125     8.573  RESOLVABLE
+contraction_rate_p05              11.253+/-1.288         7.076+/-1.827         0.957+/-0.000      10.296     0.911  RESOLVABLE
+contraction_rate_p95               1.502+/-0.006         1.897+/-0.759         1.045+/-0.000       0.456     0.005  RESOLVABLE
+divergence_error                 470.922+/-39.265      484.665+/-273.433       0.051+/-0.025     470.872    27.783  RESOLVABLE
+expansion_rate_mean                1.119+/-0.019         1.062+/-0.119         1.172+/-0.144       0.053     0.116  within noise
+corr_expansion_gt_vs_emu           0.819+/-0.015         0.838+/-0.155         0.924+/-0.056       0.105     0.050  RESOLVABLE
+corr_contraction_gt_vs_emu         0.071+/-0.048         0.066+/-0.287        -0.067+/-0.119       0.138     0.118  RESOLVABLE
+contraction_rate_mean             21.285+/-1.137         7.479+/-0.128         0.992+/-0.000      20.293     0.804  RESOLVABLE
+contraction_rate_std             358.484+/-27.325      114.380+/-29.453        0.125+/-0.071     358.359    19.372  RESOLVABLE
+contraction_rate_p05              36.583+/-2.344        10.597+/-1.113         0.958+/-0.000      35.625     1.658  RESOLVABLE
+contraction_rate_p95               5.577+/-0.220         1.978+/-1.050         1.048+/-0.001       4.529     0.156  RESOLVABLE
+divergence_error                2535.821+/-142.121     810.653+/-15.935        0.032+/-0.004    2535.789   100.497  RESOLVABLE
+expansion_rate_mean                0.837+/-0.018         0.903+/-0.073         1.171+/-0.236       0.334     0.180  RESOLVABLE
+corr_expansion_gt_vs_emu           0.933+/-0.002         0.828+/-0.073         0.926+/-0.048       0.007     0.035  within noise
+corr_contraction_gt_vs_emu        -0.287+/-0.045        -0.138+/-0.011         0.170+/-0.185       0.457     0.163  RESOLVABLE
+contraction_rate_mean              4.549+/-0.220         4.301+/-2.058         0.992+/-0.000       3.558     0.156  RESOLVABLE
+contraction_rate_std             108.381+/-0.517        53.449+/-27.881        0.111+/-0.076     108.270     0.419  RESOLVABLE
+contraction_rate_p05              10.581+/-0.123         6.210+/-2.766         0.959+/-0.000       9.622     0.087  RESOLVABLE
+contraction_rate_p95               1.523+/-0.058         1.805+/-0.360         1.050+/-0.000       0.473     0.041  RESOLVABLE
+divergence_error                 425.140+/-26.298      395.473+/-245.941       0.011+/-0.009     425.129    18.602  RESOLVABLE
+expansion_rate_mean                1.118+/-0.008         1.020+/-0.117         1.171+/-0.143       0.053     0.107  within noise
+corr_expansion_gt_vs_emu           0.813+/-0.050         0.911+/-0.080         0.907+/-0.049       0.095     0.070  RESOLVABLE
+corr_contraction_gt_vs_emu         0.053+/-0.030         0.229+/-0.296         0.075+/-0.088       0.022     0.084  within noise

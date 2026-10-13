@@ -8,6 +8,11 @@ The objective is a suite of tests and graphics that analyse whether an emulator 
 correlation dimension, symbolic dynamics, and attractor topology — and to say how far each has
 drifted, with controls that make the numbers interpretable.
 
+**Write-up:** [`PAPER.md`](PAPER.md) ([rendered PDF](PAPER.pdf)) — a research-paper-style
+account of the project, written to be readable without a physics background. It covers the core
+thesis (why forecast accuracy and dynamical fidelity decouple), what each module does, and where
+the science currently stands.
+
 ---
 
 ## Quick start
@@ -60,6 +65,7 @@ implementations drifting apart the way the three copies of the old code did.
 | [`configs/sweep.json`](configs/sweep.json) | The sweep definition plus a small `smoke` block |
 | [`tests/`](tests) | 46 tests, CPU-only |
 | [`legacy/`](legacy) | Superseded notebook and helpers, kept for the record |
+| [`PAPER.md`](PAPER.md) | Research-paper write-up; renders to [`PAPER.pdf`](PAPER.pdf) |
 | [`IMPLEMENTATION_SPEC.md`](IMPLEMENTATION_SPEC.md) | The spec this package implements, with the defect list |
 
 ## How each diagnostic is made trustworthy

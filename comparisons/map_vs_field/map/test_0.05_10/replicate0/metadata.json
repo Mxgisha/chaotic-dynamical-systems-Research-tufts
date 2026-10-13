@@ -1,0 +1,17 @@
+{
+  "arm": "map",
+  "backend": "map",
+  "replicate": 0,
+  "noise_scale": 0.05,
+  "horizon": 10,
+  "n_params": 33923,
+  "final_train_loss": {
+    "epoch": 49,
+    "lr": 0.0001,
+    "total": 0.029978018193098036,
+    "mse": 0.0029041628776976455,
+    "l1": 0.2707385531540039,
+    "ftle": 0.0
+  },
+  "field_scale": null
+}
