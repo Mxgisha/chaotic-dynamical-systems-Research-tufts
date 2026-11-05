@@ -1,0 +1,12 @@
+# Core runtime.  The NumPy path runs the whole pipeline and the whole test suite;
+# it is deliberately dependency-light so results do not require a GPU.
+numpy>=1.24
+matplotlib>=3.7
+
+# Random-key plumbing (point_key / initial_conditions).  `jax.random` is used
+# even when the array backend is NumPy, because it gives reproducible,
+# splittable keys.
+jax>=0.4.20
+
+# Testing
+pytest>=7.0

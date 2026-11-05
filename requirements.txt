@@ -1,12 +1,10 @@
-# Core runtime.  The NumPy path runs the whole pipeline and the whole test suite;
-# it is deliberately dependency-light so results do not require a GPU.
+# Notebook requirements. Everything runs on CPU; a GPU is used automatically if present.
 numpy>=1.24
 matplotlib>=3.7
-
-# Random-key plumbing (point_key / initial_conditions).  `jax.random` is used
-# even when the array backend is NumPy, because it gives reproducible,
-# splittable keys.
 jax>=0.4.20
+diffrax>=0.5.0
+equinox>=0.11.0
+optax>=0.1.7
 
-# Testing
-pytest>=7.0
+# For a GPU, replace the `jax` line above with the CUDA build matching your driver:
+#   pip install -U "jax[cuda12]"

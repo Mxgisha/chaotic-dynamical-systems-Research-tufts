@@ -382,7 +382,7 @@ The emulator has not learned a chaotic system. It has learned something closer t
 The forecast metric — the thing it was trained and would normally be judged on — reports none of
 this.
 
-![Lobe transitions at noise 0.4](runs/test_0.4_10/replicate0/symbolic_dynamics.png)
+![Lobe transitions at noise 0.4](legacy/full_package/runs/test_0.4_10/replicate0/symbolic_dynamics.png)
 
 **Figure 2 — `symbolic_dynamics` at noise 0.4.** *The emulator's lobe-switching (red, dashed)
 flatlines almost immediately while the true system (blue) continues to alternate; the title
@@ -434,7 +434,7 @@ value:
 | | ground truth | emulator |
 |---|---|---|
 | volume change, mean | `−13.67` (constant) | `−39.1` |
-| volume change, spread across states | `0.4` *(numerical floor)* | `23.2` |
+| volume change, spread across states | `9e-5` *(numerical floor)* | `23.2` |
 | typical state (95th percentile) | `1.00×` | **1.16×** too fast |
 | worst 5% of states | `1.00×` | **6.4×** too fast |
 
@@ -445,9 +445,16 @@ Two things to take from this:
    nearly correct and a minority are catastrophically wrong. This single fact changes what a fix
    should target.
 2. **The emulator invents structure the system does not have.** The true volume change is rigidly
-   constant (spread 0.4, which is our own numerical discretisation error, not physics). The
-   emulator's varies by 23 units across states. It has learned a state-dependent rule where none
-   exists.
+   constant: measured with the exact autodiff Jacobian the spread is `9e-5`, which is round-off,
+   not physics. The emulator's varies by 23 units across states. It has learned a
+   state-dependent rule where none exists.
+
+   *Correction.* An earlier version of this measurement reported the true spread as `0.4` and
+   attributed it to RK4 discretisation. That was wrong: it came from a hand-derived stage-product
+   approximation to the flow Jacobian. Differentiating the RK4 step with autodiff instead gives the
+   exact Jacobian, and the true spread drops by three orders of magnitude. The emulator's error was
+   therefore about 60x larger relative to the floor than first stated, and the flow-Jacobian routine
+   in the archived package is only accurate to ~1%.
 
 Stratifying by position shows the error is organised, not random — worst in the mid-lobes, mildest
 near the saddle point between them:
@@ -457,7 +464,7 @@ near the saddle point between them:
 | near the saddle (`\|x\| < 2`) | `−8` |
 | mid-lobes (`6 ≤ \|x\| < 10`) | `−40` |
 
-![Local contraction diagnostic](runs/test_0.05_10/replicate0/local_contraction.png)
+![Local contraction diagnostic](legacy/full_package/runs/test_0.05_10/replicate0/local_contraction.png)
 
 **Figure 1 — `local_contraction`.** *Left: the true volume-change rate is a single spike at
 `−13.67`; the emulator's is smeared across `−14` to `−110`. Middle: the error grows with distance

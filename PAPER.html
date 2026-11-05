@@ -564,7 +564,7 @@ value:</p>
 </tr>
 <tr>
 <td>volume change, spread across states</td>
-<td><code>0.4</code> <em>(numerical floor)</em></td>
+<td><code>9e-5</code> <em>(numerical floor)</em></td>
 <td><code>23.2</code></td>
 </tr>
 <tr>
@@ -586,10 +586,16 @@ value:</p>
    nearly correct and a minority are catastrophically wrong. This single fact changes what a fix
    should target.</li>
 <li><strong>The emulator invents structure the system does not have.</strong> The true volume change is rigidly
-   constant (spread 0.4, which is our own numerical discretisation error, not physics). The
-   emulator's varies by 23 units across states. It has learned a state-dependent rule where none
-   exists.</li>
+   constant: measured with the exact autodiff Jacobian the spread is <code>9e-5</code>, which is round-off,
+   not physics. The emulator's varies by 23 units across states. It has learned a
+   state-dependent rule where none exists.</li>
 </ol>
+<p><em>Correction.</em> An earlier version of this measurement reported the true spread as <code>0.4</code> and
+   attributed it to RK4 discretisation. That was wrong: it came from a hand-derived stage-product
+   approximation to the flow Jacobian. Differentiating the RK4 step with autodiff instead gives the
+   exact Jacobian, and the true spread drops by three orders of magnitude. The emulator's error was
+   therefore about 60x larger relative to the floor than first stated, and the flow-Jacobian routine
+   in the archived package is only accurate to ~1%.</p>
 <p>Stratifying by position shows the error is organised, not random — worst in the mid-lobes, mildest
 near the saddle point between them:</p>
 <table>
