@@ -1,0 +1,72 @@
+{
+  "noise": 0.05,
+  "eps": 0.5,
+  "m": 16,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "arms": {
+    "map, pairs only": {
+      "ratio": 1.0112241235458692,
+      "ratio_spread": 0.34455763713690746,
+      "mse": 0.005384326740724245,
+      "mse_spread": 0.0007919799837168935,
+      "spread_ratio": 1.0255657886185556,
+      "spread_ratio_spread": 0.008490405424423475,
+      "learned_rate": -13.820063021793544,
+      "learned_rate_spread": 4.708954374204401
+    },
+    "field, pairs only": {
+      "ratio": 0.11127981788599449,
+      "ratio_spread": 0.049773001738197944,
+      "mse": 0.004026113447315202,
+      "mse_spread": 0.0003317305675756563,
+      "spread_ratio": 1.0697872179341585,
+      "spread_ratio_spread": 0.0025998029096447883,
+      "learned_rate": -1.520824177775258,
+      "learned_rate_spread": 0.6802310237553719
+    },
+    "field + analytic penalty": {
+      "ratio": 1.0013282965136951,
+      "ratio_spread": 0.0035184145451984117,
+      "mse": 0.08316858675826642,
+      "mse_spread": 0.007029182799327266,
+      "spread_ratio": 1.0028661131153942,
+      "spread_ratio_spread": 0.00038396929745387887,
+      "learned_rate": -13.684820052353833,
+      "learned_rate_spread": 0.04808499878437722
+    },
+    "map, pairs + ensemble": {
+      "ratio": 1.0349620514320177,
+      "ratio_spread": 0.027010550039730186,
+      "mse": 0.007660434202228998,
+      "mse_spread": 0.00724996993265772,
+      "spread_ratio": 0.9989515356482171,
+      "spread_ratio_spread": 0.0002759370004964401,
+      "learned_rate": -14.144481369570906,
+      "learned_rate_spread": 0.36914418387631365
+    },
+    "field, pairs + ensemble": {
+      "ratio": 1.0183124784900244,
+      "ratio_spread": 0.030072366341689527,
+      "mse": 0.005210643403965906,
+      "mse_spread": 0.0007106173101231279,
+      "spread_ratio": 1.0028131214797986,
+      "spread_ratio_spread": 0.0020720676693419815,
+      "learned_rate": -13.916937206030331,
+      "learned_rate_spread": 0.41098900666975524
+    },
+    "map, ensemble only": {
+      "ratio": 1.0477277966142597,
+      "ratio_spread": 0.0532200153921607,
+      "mse": 0.12170305140820431,
+      "mse_spread": 0.01905511930178838,
+      "spread_ratio": 0.9988207864040227,
+      "spread_ratio_spread": 0.0019497157987420355,
+      "learned_rate": -14.318946553728216,
+      "learned_rate_spread": 0.7273402103595288
+    }
+  }
+}

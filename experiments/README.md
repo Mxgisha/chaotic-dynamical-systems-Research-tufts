@@ -1,4 +1,4 @@
-# Steps 1 and 2: making the divergence learnable, or proving it is not
+# Steps 1–3: making the divergence learnable without being told the answer
 
 Two experiments that follow the open question in [`PAPER.md`](../PAPER.md) §5.4:
 the repair works, but only because the divergence `−13.667` was computed
@@ -11,6 +11,7 @@ before spending compute on it.
 ```bash
 python experiments/step1_scaling.py
 python experiments/step2_data_divergence.py
+python experiments/step3_ensemble_training.py
 ```
 
 Results are written to `results/*.json`, figures to `figures/`.
@@ -157,3 +158,78 @@ resolvability test that has not been applied here. These are pilots. The
 headline numbers (0.93 vs 0.998, 0.45 vs 0.95) are far larger than the seed
 spread in step 1, but they should be repeated with five seeds before being
 quoted.
+
+
+---
+
+## Step 3 — train on a cloud, not a trajectory
+
+Steps 1 and 2 say the divergence is neither constrained by a one-step objective
+nor identifiable from on-attractor pairs. Both failures point at the same fix:
+give the model more than one state at a time.
+
+**Why an ensemble sees it at first order.** The covariance of a cloud of nearby
+states transforms as `C → Dφ C Dφᵀ`, so
+
+```
+det C_{n+1} / det C_n = det(Dφ)² = exp(2 Δt ∇·f)
+```
+
+At `Δt = 0.01` that is a **24% volume change per step** — a first-order effect,
+measured directly, against the second-order term a single trajectory provides.
+The run verifies the identity: the true cloud's log-volume changes by
+`−0.2733` per step, and `2 Δt ∇·f = −0.2733`.
+
+**Design.** Base states on the attractor, `m = 16` isotropic perturbations of
+size `ε = 0.5`, the true one-step image of every member, and a loss that matches
+the cloud's mean, covariance and (implicitly) its volume. No analytic divergence
+appears anywhere. The ensemble members are off the attractor, which is exactly
+the data step 2 found necessary.
+
+![Ensemble training](figures/step3_ensemble_training.png)
+
+Input noise 0.05, three seeds, identical architecture, optimiser and budget:
+
+| arm | contraction ratio | one-step MSE |
+|---|---|---|
+| map, pairs only | 1.011 ± 0.172 | 0.00538 |
+| field, pairs only | 0.111 ± 0.025 | 0.00403 |
+| field + **analytic** penalty | **1.001 ± 0.002** | **0.08317** |
+| map, pairs + ensemble | 1.035 ± 0.014 | 0.00766 |
+| field, **pairs + ensemble** | **1.018 ± 0.015** | **0.00521** |
+| map, ensemble only | 1.048 ± 0.027 | 0.12170 |
+
+**The result.** `field + pairs + ensemble` recovers contraction to **1.8%**
+without knowing the answer, at **29% more MSE** than the unconstrained field
+(0.0052 vs 0.0040). The analytic penalty is more accurate (0.1% error) but costs
+**20×** the MSE (0.083 vs 0.0040). So the knowledge-free repair buys almost all
+of the accuracy for a small fraction of the price.
+
+Two other readings:
+
+* **The map's spread is the finding, not its mean.** At 1.011 ± 0.172 the
+  unconstrained map is right *on average* and wrong by ±17% per seed — the same
+  lottery step 1 measured. A mean-only report would call this solved.
+* **The two objectives are complementary.** Ensemble-only training gets the
+  contraction (1.048) but is 23× worse on accuracy (0.122); pairs-only gets the
+  accuracy but loses the contraction. Neither alone is the answer; the sum is.
+
+This is the experiment the PDE-scale paper does not run: they probe with
+ensembles but train on unperturbed trajectories.
+
+## What step 3 does not establish
+
+* The ensemble is built from **clean simulated clouds**. A real application may
+  not be able to generate off-attractor members, and step 2 shows noisy
+  estimation is where this breaks.
+* One noise level, one perturbation size, one ensemble size, three seeds.
+  Perturbation size is a real knob: too small and curvature dominates, too large
+  and the cloud is no longer local.
+* Only Lorenz-63. The claim that this transfers to Kolmogorov flow is untested.
+
+## Next, in order
+
+1. Repeat step 3 at input noise 0.4, where the pairs data are bad.
+2. Sweep `ε` and `m`: how small a cloud is enough?
+3. Port the PDE paper's three probes (error formation, ensemble geometry,
+   extreme events) onto Lorenz-63 so the two systems are measured identically.
