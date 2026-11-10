@@ -1,4 +1,4 @@
-"""Render PAPER.md to a self-contained HTML file and a PDF.
+"""Render a markdown file to a self-contained HTML file and a PDF.
 
 Figures are inlined as data URIs so both outputs stand alone, and DejaVu fonts
 are embedded because the built-in PDF fonts lack the maths glyphs (using <=, =>,
@@ -6,7 +6,10 @@ lambda, nabla) that the paper needs.
 
     python scripts/render_paper.py
 
-Writes PAPER.html and PAPER.pdf next to PAPER.md.
+Writes <name>.html and <name>.pdf next to the input, e.g.
+
+    python scripts/render_paper.py            # PAPER.md -> PAPER.html, PAPER.pdf
+    python scripts/render_paper.py PIPELINE.md
 """
 import base64, pathlib, re, sys
 import markdown
@@ -14,7 +17,10 @@ import markdown
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-md_text = (ROOT / 'PAPER.md').read_text()
+import sys
+MD = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'PAPER.md'
+MD = MD if MD.is_absolute() else ROOT / MD
+md_text = MD.read_text()
 
 # Rewrite image links to absolute paths so the PDF renderer can find them, and
 # inline them as data URIs so the HTML is self-contained.
@@ -82,10 +88,20 @@ html = f"""<!DOCTYPE html>
 <style>{CSS}</style></head>
 <body>{html_body}</body></html>"""
 
-(ROOT / 'PAPER.html').write_text(html)
-print('wrote PAPER.html')
+html_out = MD.with_suffix('.html')
+html_out.write_text(html)
+print('wrote', html_out.name)
 
 from xhtml2pdf import pisa
-with open('PAPER.pdf', 'wb') as out:
-    status = pisa.CreatePDF(html, dest=out)
-print('PAPER.pdf error code:', status.err)
+pdf_out = MD.with_suffix('.pdf')
+try:
+    # WeasyPrint handles multiple embedded images correctly; xhtml2pdf silently
+    # reuses the first image object for every <img> in the document.
+    from weasyprint import HTML
+    HTML(string=html, base_url=str(ROOT)).write_pdf(pdf_out)
+    print('wrote', pdf_out.name, '| weasyprint')
+except Exception as exc:                                   # pragma: no cover
+    from xhtml2pdf import pisa
+    with open(pdf_out, 'wb') as out:
+        status = pisa.CreatePDF(html, dest=out)
+    print('wrote', pdf_out.name, '| xhtml2pdf fallback:', exc)

@@ -25,6 +25,7 @@ properties, finds the failure, and fixes it. No physics background assumed.
 | [`lorenz.py`](lorenz.py) | the equations, RK4 integration, trajectories, exact Jacobians |
 | [`train.py`](train.py) | equinox MLP, losses, optax training loop, precision handling |
 | [`diagnostics.py`](diagnostics.py) | the eight measurements, all in JAX |
+| [`PIPELINE.md`](PIPELINE.md) · [`PIPELINE.pdf`](PIPELINE.pdf) | how the code fits together: four diagrams of the modules, the call graph and the notebook |
 | [`PAPER.md`](PAPER.md) · [`PAPER.pdf`](PAPER.pdf) | the written account, with the full results |
 | [`legacy/full_package/`](legacy/full_package) | the larger study this was cut down from: 103 tests, 5-seed statistics, comparison scripts |
 
