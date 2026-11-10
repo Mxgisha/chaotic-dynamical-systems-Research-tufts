@@ -178,24 +178,33 @@ def mse_loss(kind, model, x, y, dt=lorenz.DT):
 
 
 def divergence_penalty(model, x, target=lorenz.DIVERGENCE):
-    """Mean squared error of the learned field's divergence against the truth.
+    """Mean squared error of the learned field's divergence against a target.
 
     Only meaningful for the ``field`` parameterisation: the divergence is a
     first derivative of the field's output, so it can be evaluated and therefore
     penalised.  A map emulator has no equivalent local quantity.
+
+    ``target`` may be a scalar (the analytically known divergence) or an array
+    with one entry per row of ``x`` (a per-state estimate, e.g. from data).
     """
     div = jax.vmap(lambda s: divergence_at(model, s))(x)
-    return jnp.mean((div - target) ** 2)
+    t = jnp.asarray(target, dtype=div.dtype)
+    if t.ndim == 0:
+        t = t * jnp.ones_like(div)
+    return jnp.mean((div - t) ** 2)
 
 
 def make_loss(kind, dt=lorenz.DT, div_weight=0.0, div_target=lorenz.DIVERGENCE):
-    """Build ``fn(model, x, y) -> (total, (mse, divergence_penalty))``."""
+    """Build ``fn(model, x, y, target=None) -> (total, (mse, penalty))``."""
     if div_weight and kind != "field":
         raise ValueError("the divergence penalty only applies to the 'field' kind")
 
-    def loss_fn(model, x, y):
+    def loss_fn(model, x, y, target=None):
         mse = mse_loss(kind, model, x, y, dt)
-        pen = jnp.zeros(()) if not div_weight else divergence_penalty(model, x, div_target)
+        if not div_weight:
+            return mse, (mse, jnp.zeros(()))
+        t = div_target if target is None else target
+        pen = divergence_penalty(model, x, t)
         return mse + div_weight * pen, (mse, pen)
 
     return loss_fn
@@ -223,10 +232,15 @@ def train(
     optimizer = optax.chain(optax.clip_by_global_norm(1.0), optax.adam(lr))
     opt_state = optimizer.init(eqx.filter(model, eqx.is_array))
 
+    # a per-state target lives in the dataset; a scalar lives in the closure
+    per_state = data.get("div_target")
+    if per_state is not None:
+        per_state = jnp.asarray(per_state)
+
     @eqx.filter_jit
-    def step(model, opt_state, xb, yb):
+    def step(model, opt_state, xb, yb, tb):
         (total, (mse, pen)), grads = eqx.filter_value_and_grad(loss_fn, has_aux=True)(
-            model, xb, yb
+            model, xb, yb, tb
         )
         updates, opt_state = optimizer.update(grads, opt_state, model)
         return eqx.apply_updates(model, updates), opt_state, total, mse, pen
@@ -238,8 +252,9 @@ def train(
         totals, mses, pens = [], [], []
         for start in range(0, n, batch):
             idx = perm[start : start + batch]
+            tb = None if per_state is None else per_state[idx]
             model, opt_state, total, mse, pen = step(
-                model, opt_state, x[idx], y[idx]
+                model, opt_state, x[idx], y[idx], tb
             )
             totals.append(total)
             mses.append(mse)
