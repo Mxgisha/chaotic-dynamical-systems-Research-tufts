@@ -1,69 +1,110 @@
-# Chaotic dynamical systems — Research@Tufts
+# Predicting the wrong thing correctly
 
 Can a neural network learn a chaotic system's *dynamics*, or only its next state?
 
-A small network is trained to imitate the **Lorenz-63** equations. Eight measurements then
-test whether it reproduces the system's dynamics — its Lyapunov spectrum, its attractor
-dimension, its lobe statistics, and the rate at which it destroys volume — rather than just
-its one-step error.
+A small network is trained to imitate the **Lorenz-63** equations, the standard
+model of deterministic chaos. Eight measurements then ask whether it reproduces
+the system's dynamics — its Lyapunov spectrum, how fast it destroys volume, the
+shape of its attractor, how often it switches lobes — rather than how close its
+next guess is.
 
-The answer, in this study, is that the two come apart: an emulator with low one-step error
-can get the dynamics badly wrong, and the failure is concentrated in a minority of states
-rather than spread evenly.
+The answer is that the two come apart. An emulator with near-optimal one-step
+error can get the dynamics qualitatively wrong, and the failure is visible only
+if you measure the right thing.
+
+![Local contraction](figures/local_contraction.png)
+
+*Left: the true system destroys volume at one fixed rate (−13.7) at every point
+in space. The emulator's rate is smeared from −14 to −110. Right: the error is
+organised, not random — worst far from the saddle point between the lobes.*
+
+## What it shows
+
+| quantity | ground truth | emulator | |
+|---|---|---|---|
+| one-step error | — | 0.11 | looks fine |
+| dominant Lyapunov exponent | +0.88 | −0.01 | chaos destroyed |
+| volume contraction | −13.7 | 22× too fast | wrong rate |
+| attractor dimension | 2.06 | 0.85 | collapsed |
+
+*Numbers from the full study in [`docs/PAPER.pdf`](docs/PAPER.pdf), at input noise 0.4.
+The notebook reproduces the same failure with a smaller model, so its figures differ
+in magnitude but not in kind.*
+
+Forecast error notices none of this. The reason is structural: the volume change
+enters a one-step prediction only at second order in the timestep — a factor of
+100 down at `Δt = 0.01` — so a model trained on next-state error has no reason to
+learn it, and a map emulator has no local quantity that could be penalised
+anyway. Learning the *velocity field* instead exposes the divergence as a cheap
+derivative, and putting it in the loss fixes the contraction to 0.8%.
 
 ## Start here
 
-[`Lorenz63_emulator.ipynb`](Lorenz63_emulator.ipynb) — one notebook, executed end to end,
-that builds the system from the equations, trains the emulator, measures all eight
-properties, finds the failure, and fixes it. No physics background assumed.
+[`Lorenz63_emulator.ipynb`](Lorenz63_emulator.ipynb) — one notebook, executed end
+to end, that builds the system from the equations, trains the emulator, measures
+all eight properties, finds the failure, and repairs it. No physics background
+assumed; runs in about three minutes on a laptop.
 
-## Files
+## Repository
 
-| file | what it is |
+| path | what |
 |---|---|
-| [`Lorenz63_emulator.ipynb`](Lorenz63_emulator.ipynb) | the walkthrough; runs in a few minutes on a CPU |
-| [`lorenz.py`](lorenz.py) | the equations, RK4 integration, trajectories, exact Jacobians |
-| [`train.py`](train.py) | equinox MLP, losses, optax training loop, precision handling |
+| [`Lorenz63_emulator.ipynb`](Lorenz63_emulator.ipynb) | the walkthrough |
+| [`lorenz.py`](lorenz.py) | the equations, RK4, trajectories, exact Jacobians |
+| [`train.py`](train.py) | equinox MLP, losses, optax loop, precision handling |
 | [`diagnostics.py`](diagnostics.py) | the eight measurements, all in JAX |
-| [`PIPELINE.md`](PIPELINE.md) · [`PIPELINE.pdf`](PIPELINE.pdf) | how the code fits together: four diagrams of the modules, the call graph and the notebook |
-| [`experiments/`](experiments) | the two follow-up experiments: timestep scaling, and estimating the divergence from data |
-| [`PAPER.md`](PAPER.md) · [`PAPER.pdf`](PAPER.pdf) | the written account, with the full results |
-| [`legacy/full_package/`](legacy/full_package) | the larger study this was cut down from: 103 tests, 5-seed statistics, comparison scripts |
+| [`experiments/`](experiments) | three follow-ups on whether the invariant can be learned without being told |
+| [`docs/PAPER.pdf`](docs/PAPER.pdf) | the full study: five seeds, controls, error analysis |
+| [`figures/`](figures) | figures used here and in the paper |
+| [`scripts/render_docs.py`](scripts/render_docs.py) | rebuilds the PDF from its markdown |
 
-About 700 lines of Python across the three modules, plus the notebook.
+About 700 lines of Python across the three modules.
+
+## The three follow-ups
+
+Each is a self-contained script that writes its own results and figures.
+
+**[`step1_scaling.py`](experiments/step1_scaling.py)** — does the timestep
+control the divergence error? *No.* The predicted `Δt⁻¹` law is not observed
+(slopes +0.31 and +0.05); instead the mismatch is a lottery across seeds
+(−21 to −6 against a true −13.7).
+
+**[`step2_data_divergence.py`](experiments/step2_data_divergence.py)** — can the
+divergence be estimated from data instead of computed? *Only with the right
+data.* From on-attractor pairs the estimate recovers 0.45–0.53 of the true rate;
+from off-attractor transients it recovers 0.83–0.95. The transverse contraction
+that dominates the divergence is simply not sampled on the attractor.
+
+**[`step3_ensemble_training.py`](experiments/step3_ensemble_training.py)** — can a
+cloud of nearby states constrain the contraction without any analytic target?
+*Yes, at a fraction of the cost.* Matching the cloud's covariance recovers
+contraction to 1.8% for 29% extra one-step error, where the analytic penalty buys
+0.1% for 20× the error.
 
 ## Running it
 
 ```bash
 pip install -r requirements.txt
 jupyter lab Lorenz63_emulator.ipynb
+
+python experiments/step1_scaling.py
+python experiments/step2_data_divergence.py
+python experiments/step3_ensemble_training.py
 ```
 
-**On a GPU.** The code is plain JAX and selects a GPU automatically when one is visible. On
-Colab, set the runtime to GPU and install the CUDA build:
+**On a GPU.** The code is plain JAX and uses a GPU automatically when one is
+visible. On Colab, set the runtime to GPU and install the CUDA build:
 
 ```python
-!pip install -U "jax[cuda12]" diffrax equinox optax
+!pip install -U "jax[cuda12]" equinox optax
 ```
 
-The second cell prints the backend and devices it found. Training runs in float32; the
-diagnostics run in float64, and section 7 of the notebook measures the difference.
+Training runs in float32; the diagnostics run in float64, and the notebook
+measures the difference.
 
-## The idea in one paragraph
+## Scope
 
-A chaotic system destroys volume at a rate (the divergence) that is *constant* for
-Lorenz-63, and the three Lyapunov exponents must sum to it. That makes the volume change a
-known target at every state, so an emulator's departure from it is unambiguous. It turns out
-that the training signal cannot see this quantity at all: the divergence enters a one-step
-prediction only at second order in the timestep, a factor of 100 down at `dt = 0.01`. An
-emulator that learns the one-step map therefore has no incentive to get it right, and no
-local quantity that could be penalised. Learning the *velocity field* instead exposes the
-divergence as a cheap derivative, and penalising it recovers the correct contraction at a
-modest cost in one-step accuracy.
-
-## Where this came from
-
-The larger study — five seeds per configuration, significance screening across 198
-comparisons, and the parameterisation experiment in full — is in
-[`legacy/full_package/`](legacy/full_package) and documented in [`PAPER.md`](PAPER.md). The
-notebook is a reduction of it to the parts that carry the argument.
+The paper in [`docs/`](docs/PAPER.pdf) describes the full `v1.0` study — an
+eight-diagnostic package with five seeds and a three-arm comparison — which is
+archived at git tag `v1.0`. This branch is a reduction of it: the notebook, three
+modules, and the three follow-up experiments above.

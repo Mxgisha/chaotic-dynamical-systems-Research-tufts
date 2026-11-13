@@ -1,10 +1,8 @@
-# Agent scratch: venv and matplotlib cache (not part of the deliverable).
-# Note: runs/ is intentionally NOT ignored -- sweep artifacts are committed.
+# Local environment and caches
 .agent_scratch/
 __pycache__/
 *.pyc
 .pytest_cache/
 
-
-# reference papers, kept locally, not redistributed
+# Reference papers, kept locally, not redistributed
 refs/

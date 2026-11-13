@@ -1,6 +1,6 @@
 # Steps 1–3: making the divergence learnable without being told the answer
 
-Two experiments that follow the open question in [`PAPER.md`](../PAPER.md) §5.4:
+Three experiments that follow the open question in [`docs/PAPER.md`](../docs/PAPER.md) §5.4:
 the repair works, but only because the divergence `−13.667` was computed
 analytically. Can the same result be reached without being handed the answer?
 

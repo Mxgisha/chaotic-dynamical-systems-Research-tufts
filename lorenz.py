@@ -42,11 +42,6 @@ def rhs(y, params=PARAMS):
     return jnp.stack([s * (yy - x), x * (r - z) - yy, x * yy - b * z])
 
 
-def rhs_t(t, y, args):
-    """Same field, in the (t, y, args) signature diffrax expects."""
-    return rhs(y)
-
-
 def jacobian(y, params=PARAMS):
     """Analytic derivative matrix df/dy at y."""
     x, yy, z = y[0], y[1], y[2]
@@ -88,30 +83,6 @@ def trajectory(y0, steps, dt=DT, burn_in=0, params=PARAMS):
     return path[burn_in:] if burn_in else path
 
 
-def reference(y0, t1, dt=DT, rtol=1e-10):
-    """Same trajectory from diffrax's adaptive Tsit5, for cross-checking RK4.
-
-    Only used to show that the fixed-step integrator above is accurate enough;
-    the rest of the notebook uses ``flow`` because a one-step *map* is what the
-    emulator has to learn.
-    """
-    import diffrax
-
-    term = diffrax.ODETerm(rhs_t)
-    sol = diffrax.diffeqsolve(
-        term,
-        diffrax.Tsit5(),
-        t0=0.0,
-        t1=t1,
-        dt0=dt,
-        y0=y0,
-        saveat=diffrax.SaveAt(ts=jnp.arange(1, int(round(t1 / dt)) + 1) * dt),
-        stepsize_controller=diffrax.PIDController(rtol=rtol, atol=rtol),
-        max_steps=100000,
-    )
-    return sol.ys
-
-
 def flow_jacobian(y, dt=DT, params=PARAMS):
     """Derivative of one RK4 step with respect to the state.
 
@@ -128,13 +99,6 @@ def initial_conditions(key, n, low=-15.0, high=15.0, z_offset=25.0):
     """``n`` states spread over a box, shifted in z to sit near the attractor."""
     ic = jax.random.uniform(key, (n, 3), minval=low, maxval=high)
     return ic.at[:, 2].add(z_offset)
-
-
-def fixed_points(params=PARAMS):
-    """The three equilibria: the origin and the two lobe centres."""
-    s, r, b = params
-    c = jnp.sqrt(b * (r - 1.0))
-    return jnp.array([[0.0, 0.0, 0.0], [c, c, r - 1.0], [-c, -c, r - 1.0]])
 
 
 def divergence_at(y, params=PARAMS):
