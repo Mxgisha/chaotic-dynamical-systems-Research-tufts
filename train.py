@@ -80,26 +80,25 @@ def cast(model, dtype):
     )
 
 
-def step_map(model, y):
-    """One step of a map emulator."""
-    return model(y)
-
-
-def step_field(model, y, dt=lorenz.DT):
-    """One RK4 step of a *vector field* emulator."""
-    k1 = model(y)
-    k2 = model(y + 0.5 * dt * k1)
-    k3 = model(y + 0.5 * dt * k2)
-    k4 = model(y + dt * k3)
-    return y + (dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
-
-
 def make_step(kind, model, dt=lorenz.DT):
-    """Return the one-step function for ``kind`` in {'map', 'field'}."""
+    """Return the one-step function for ``kind`` in {'map', 'field'}.
+
+    A map network *is* its step function.  A field network has to be integrated,
+    which is what makes the volume change a local derivative of its output.
+    """
     if kind == "map":
-        return lambda y: step_map(model, y)
+        return model
+
     if kind == "field":
-        return lambda y: step_field(model, y, dt)
+        def step(y):
+            k1 = model(y)
+            k2 = model(y + 0.5 * dt * k1)
+            k3 = model(y + 0.5 * dt * k2)
+            k4 = model(y + dt * k3)
+            return y + (dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
+
+        return step
+
     raise ValueError(f"unknown kind {kind!r}")
 
 
@@ -224,7 +223,12 @@ def train(
     dt=lorenz.DT,
     verbose=True,
 ):
-    """Fit one emulator.  Returns ``(model, history)``."""
+    """Fit one emulator and return ``(model, history)``.
+
+    The loss is next-state MSE, plus an optional penalty on the field's
+    divergence (``div_weight``).  A per-state target may be supplied as
+    ``data["div_target"]``; otherwise the scalar ``div_target`` is used.
+    """
     x, y = data["x"], data["y"]
     n = x.shape[0]
     loss_fn = make_loss(kind, dt, div_weight, div_target)
@@ -238,7 +242,7 @@ def train(
         per_state = jnp.asarray(per_state)
 
     @eqx.filter_jit
-    def step(model, opt_state, xb, yb, tb):
+    def train_step(model, opt_state, xb, yb, tb):
         (total, (mse, pen)), grads = eqx.filter_value_and_grad(loss_fn, has_aux=True)(
             model, xb, yb, tb
         )
@@ -253,7 +257,7 @@ def train(
         for start in range(0, n, batch):
             idx = perm[start : start + batch]
             tb = None if per_state is None else per_state[idx]
-            model, opt_state, total, mse, pen = step(
+            model, opt_state, total, mse, pen = train_step(
                 model, opt_state, x[idx], y[idx], tb
             )
             totals.append(total)
@@ -262,7 +266,6 @@ def train(
         history.append(
             {
                 "epoch": epoch,
-                "lr": lr,
                 "total": float(jnp.mean(jnp.stack(totals))),
                 "mse": float(jnp.mean(jnp.stack(mses))),
                 "divergence_penalty": float(jnp.mean(jnp.stack(pens))),

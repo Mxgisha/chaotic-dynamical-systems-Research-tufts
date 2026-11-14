@@ -42,19 +42,6 @@ def rhs(y, params=PARAMS):
     return jnp.stack([s * (yy - x), x * (r - z) - yy, x * yy - b * z])
 
 
-def jacobian(y, params=PARAMS):
-    """Analytic derivative matrix df/dy at y."""
-    x, yy, z = y[0], y[1], y[2]
-    s, r, b = params
-    return jnp.array(
-        [
-            [-s, s, 0.0],
-            [r - z, -1.0, -x],
-            [yy, x, -b],
-        ]
-    )
-
-
 # --- integration ----------------------------------------------------------
 def rk4_step(y, dt=DT, params=PARAMS):
     """One classical fourth-order Runge-Kutta step."""
@@ -99,16 +86,3 @@ def initial_conditions(key, n, low=-15.0, high=15.0, z_offset=25.0):
     """``n`` states spread over a box, shifted in z to sit near the attractor."""
     ic = jax.random.uniform(key, (n, 3), minval=low, maxval=high)
     return ic.at[:, 2].add(z_offset)
-
-
-def divergence_at(y, params=PARAMS):
-    """Divergence of the field at ``y`` -- constant for Lorenz-63."""
-    return jnp.trace(jacobian(y, params))
-
-
-if __name__ == "__main__":
-    # quick self-check: divergence constant, exponents sum to it
-    ys = trajectory(jnp.array([1.0, 1.0, 1.0]), 4, burn_in=500)
-    divs = jax.vmap(divergence_at)(ys)
-    print("divergence per state:", divs)
-    print("state after 504 steps:", ys[-1])

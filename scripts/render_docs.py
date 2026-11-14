@@ -38,9 +38,8 @@ html_body = markdown.markdown(
     md_text, extensions=['tables', 'fenced_code', 'toc', 'attr_list', 'sane_lists']
 )
 
-# xhtml2pdf needs real font files to render the maths glyphs (<=, =>, lambda,
-# nabla) that the built-in PDF fonts lack.  Borrow matplotlib's bundled DejaVu,
-# which covers them.  A placeholder avoids f-string brace escaping entirely.
+# Real font files are needed to render the maths glyphs (<=, =>, lambda, nabla)
+# that the built-in PDF fonts lack.  Borrow matplotlib's bundled DejaVu.
 import matplotlib
 
 FONTDIR = matplotlib.get_data_path() + '/fonts/ttf'
@@ -83,21 +82,13 @@ a { color: #0645ad; text-decoration: none; }
 
 html = f"""<!DOCTYPE html>
 <html><head><meta charset="utf-8">
-<title>Predicting the Wrong Thing Correctly</title>
+<title>{MD.stem}</title>
 <style>{CSS}</style></head>
 <body>{html_body}</body></html>"""
 
 
-from xhtml2pdf import pisa
+from weasyprint import HTML
+
 pdf_out = MD.with_suffix('.pdf')
-try:
-    # WeasyPrint handles multiple embedded images correctly; xhtml2pdf silently
-    # reuses the first image object for every <img> in the document.
-    from weasyprint import HTML
-    HTML(string=html, base_url=str(ROOT)).write_pdf(pdf_out)
-    print('wrote', pdf_out.name, '| weasyprint')
-except Exception as exc:                                   # pragma: no cover
-    from xhtml2pdf import pisa
-    with open(pdf_out, 'wb') as out:
-        status = pisa.CreatePDF(html, dest=out)
-    print('wrote', pdf_out.name, '| xhtml2pdf fallback:', exc)
+HTML(string=html, base_url=str(ROOT)).write_pdf(pdf_out)
+print('wrote', pdf_out.name)

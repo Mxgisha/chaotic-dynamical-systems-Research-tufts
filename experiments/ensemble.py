@@ -67,7 +67,13 @@ def _cov(Z, m):
 
 
 def ensemble_terms(kind, model, members, true, dt=lorenz.DT):
-    """Return (mean_error, covariance_error, logvolume_error)."""
+    """Return (mean_error, covariance_error).
+
+    Matching the covariance already fixes the volume, because the determinant of
+    the covariance is the square of the volume ratio.  A separate log-volume term
+    was tried and dropped: it diverges while the predicted cloud is still
+    singular.
+    """
     step = train.make_step(kind, model, dt)
     pred = jax.vmap(jax.vmap(step))(members)
     m = members.shape[1]
@@ -80,15 +86,10 @@ def ensemble_terms(kind, model, members, true, dt=lorenz.DT):
     Zt = true - true_mean[:, None, :]
     Cp, Ct = _cov(Zp, m), _cov(Zt, m)
     cov_err = jnp.mean(jnp.sum((Cp - Ct) ** 2, axis=(-1, -2)))
-
-    eye = jnp.eye(3) * 1e-8
-    lv_p = jnp.linalg.slogdet(Cp + eye)[1]
-    lv_t = jnp.linalg.slogdet(Ct + eye)[1]
-    vol_err = jnp.mean((lv_p - lv_t) ** 2)
-    return mean_err, cov_err, vol_err
+    return mean_err, cov_err
 
 
-def make_ensemble_loss(kind, dt=lorenz.DT, w_mean=1.0, w_cov=1.0, w_vol=0.0):
+def make_ensemble_loss(kind, dt=lorenz.DT, w_mean=1.0, w_cov=1.0):
     """Ensemble-only loss, with each term normalised by its own data scale.
 
     Without normalisation the position term is O(10^2) and the covariance term
@@ -97,16 +98,14 @@ def make_ensemble_loss(kind, dt=lorenz.DT, w_mean=1.0, w_cov=1.0, w_vol=0.0):
     """
 
     def loss_fn(model, members, true):
-        mean_err, cov_err, vol_err = ensemble_terms(kind, model, members, true, dt)
+        mean_err, cov_err = ensemble_terms(kind, model, members, true, dt)
         m = members.shape[1]
         true_mean = jnp.mean(true, axis=1)
         scale_mean = jnp.mean(jnp.sum(true_mean ** 2, axis=-1)) + 1e-8
         Ct = _cov(true - true_mean[:, None, :], m)
         scale_cov = jnp.mean(jnp.sum(Ct ** 2, axis=(-1, -2))) + 1e-12
-        total = (w_mean * mean_err / scale_mean
-                 + w_cov * cov_err / scale_cov
-                 + w_vol * vol_err)
-        return total, (mean_err, cov_err, vol_err)
+        total = w_mean * mean_err / scale_mean + w_cov * cov_err / scale_cov
+        return total, (mean_err, cov_err)
 
     return loss_fn
 
@@ -117,14 +116,13 @@ def pair_loss(kind, model, x, y, dt=lorenz.DT):
 
 # --- training -------------------------------------------------------------
 def train_model(kind, model, key, *, pairs=None, ens=None, w_pairs=1.0,
-                w_ens=1.0, w_vol=0.0, epochs=40, batch=192,
-                lr=1e-3, verbose=False):
+                w_ens=1.0, epochs=40, batch=192, lr=1e-3, verbose=False):
     """Train on pairs, on ensembles, or both.
 
     When both are given, every step takes one batch of each and applies a single
     update, so the two objectives see the same number of updates.
     """
-    ens_loss = make_ensemble_loss(kind, w_vol=w_vol)
+    ens_loss = make_ensemble_loss(kind)
     optimizer = optax.chain(optax.clip_by_global_norm(1.0), optax.adam(lr))
     opt_state = optimizer.init(eqx.filter(model, eqx.is_array))
 
@@ -140,7 +138,7 @@ def train_model(kind, model, key, *, pairs=None, ens=None, w_pairs=1.0,
     def step(model, opt_state, xb, yb, mb, tb):
         def total_loss(model):
             tot = jnp.zeros(())
-            aux = (jnp.zeros(()), jnp.zeros(()), jnp.zeros(()))
+            aux = (jnp.zeros(()), jnp.zeros(()))
             if use_pairs:
                 tot = tot + w_pairs * pair_loss(kind, model, xb, yb)
             if use_ens:
@@ -202,5 +200,4 @@ def evaluate(model, kind, pairs, probe, test_ens, dt=lorenz.DT):
         "ratio": learned / lorenz.DIVERGENCE,
         "mse": mse,
         "spread_ratio": float(spread_p / spread_t),
-        "rate_spread": float(jnp.std(div)),
     }

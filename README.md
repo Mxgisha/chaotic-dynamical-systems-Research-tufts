@@ -56,9 +56,11 @@ assumed; runs in about three minutes on a laptop.
 | [`experiments/`](experiments) | three follow-ups on whether the invariant can be learned without being told |
 | [`docs/PAPER.pdf`](docs/PAPER.pdf) | the full study: five seeds, controls, error analysis |
 | [`figures/`](figures) | figures used here and in the paper |
+| [`tests/`](tests) | five invariant tests: the checks that make the measurements trustworthy |
 | [`scripts/render_docs.py`](scripts/render_docs.py) | rebuilds the PDF from its markdown |
 
-About 700 lines of Python across the three modules.
+About 650 lines of Python across the three modules, 5 tests, and a CI workflow
+that runs them and executes the notebook.
 
 ## The three follow-ups
 

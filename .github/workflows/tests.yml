@@ -1,0 +1,37 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install -r requirements.txt pytest nbclient ipykernel
+
+      - name: Invariant tests
+        run: python -m pytest -q
+
+      - name: Execute the notebook
+        run: |
+          python - <<'PY'
+          import nbformat
+          from nbclient import NotebookClient
+
+          nb = nbformat.read("Lorenz63_emulator.ipynb", as_version=4)
+          NotebookClient(
+              nb, timeout=1200, kernel_name="python3",
+              resources={"metadata": {"path": "."}},
+          ).execute()
+          bad = [o for c in nb.cells if c.cell_type == "code"
+                 for o in c.get("outputs", []) if o.output_type == "error"]
+          assert not bad, f"{len(bad)} error output(s)"
+          print("notebook executed cleanly")
+          PY

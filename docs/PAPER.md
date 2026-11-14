@@ -253,28 +253,26 @@ backend exists for speed.
 
 ### 3.1 Pipeline overview
 
-The package is a straight line from generating data to reporting a number, with the controls
-branching off in parallel at the measurement stage:
+The pipeline is a straight line from generating data to measuring the result. In the full
+`v1.0` study each stage was its own module; this repository folds them into three.
 
-| Stage | Module | What it does |
+| Stage | Where it lives | What it does |
 |---|---|---|
-| 1. Ground truth | `system.py` | Integrates the Lorenz equations with a fourth-order Runge–Kutta stepper; also supplies the exact derivative matrices the diagnostics compare against. |
-| 2. Data | `data.py` | Cuts long trajectories into sliding windows `(x_n, x_(n+1), …)` and adds noise to the inputs only. |
-| 3. Model | `models.py`, `field_models.py` | The emulator itself: a map network or a velocity-field network. |
-| 4. Training | `train.py`, `jax_trainer.py` | Adam with gradient clipping; one loss definition shared by both backends. |
-| 5. Rollout | `controls.py` | Runs the trained emulator forward, and separately builds the two control trajectories. |
-| 6. Measurement | `diagnostics/` | Eight pure functions. They return numbers; they never plot and never decide pass or fail. |
-| 7. Reporting | `report.py` | Builds the figures and `results.json`, and re-reads every image it writes to confirm it is not blank. |
-| 8. Aggregation | `aggregate.py` | Collapses the five seeds into means and spreads, and computes the pairwise resolvability verdicts. |
+| 1. Ground truth | `lorenz.py` | Integrates the Lorenz equations with RK4; supplies the exact Jacobian of one step by autodiff. |
+| 2. Data | `train.py` (`make_dataset`) | Cuts long trajectories into consecutive pairs and adds noise to the inputs only. |
+| 3. Model | `train.py` (`make_mlp`, `make_step`) | The emulator: a map network, or a field network integrated by RK4. |
+| 4. Training | `train.py` (`train`) | Adam with gradient clipping, optionally plus a divergence penalty. |
+| 5. Rollout | `train.py` (`rollout`) | Runs the trained emulator forward. |
+| 6. Measurement | `diagnostics.py` | Eight pure functions. They return numbers; they never plot and never decide pass or fail. |
+| 7. Reporting | the notebook, `experiments/` | Figures, tables and the seed statistics. |
+| 8. Aggregation | `experiments/` | Five-seed means and spreads, and the pairwise resolvability screen. |
 
-Two structural rules are enforced by tests rather than convention, because both were violated in
-the original code:
+Two structural rules are kept because both were violated in the original code:
 
-* **Diagnostics never create figures.** Plotting lives only in `report.py`. A test parses the
-  diagnostic modules and fails if any of them imports a plotting library.
+* **Diagnostics never create figures.** Plotting lives in the notebook and the experiment
+  scripts. A diagnostic that plots couples measurement to presentation.
 * **Measurement and judgement are separate.** No diagnostic prints "PASS" or "FAIL"; deciding
-  whether a difference is meaningful happens in `aggregate.py`, where the controls and seed
-  spreads are visible.
+  whether a difference is meaningful happens where the controls and seed spreads are visible.
 
 ### 3.2 The emulator
 
